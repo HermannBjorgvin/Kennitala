@@ -1,8 +1,12 @@
 {
-  "name": "Kennitala.js",
-  "version": "1.0.0",
+  "name": "kennitala",
+  "version": "1.0.2",
   "description": "A validator module to check the checksum of Icelandic kennitölur",
   "main": "kennitala.js",
   "author": "Hermann.is",
-  "license": "ISC"
+  "license": "ISC",
+  "repository" :{ 
+  	"type" : "git",
+  	"url" : "https://github.com/HermannBjorgvin/Kennitala.git"
+  }
 }
