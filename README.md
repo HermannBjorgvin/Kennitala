@@ -36,11 +36,13 @@ Based off of old code, so defintiely not bullet proof, if you have a pull reques
         returns boolean
     
         Checks if kennitala checksum is correct and if day of birth is between 1-31
+        If passed a string with non-digit characters included it removes them before validating
     
     kennitala.isCompany([string, int]);
         returns boolean
     
         Checks if kennitala checksum is correct and if day of birth is between 41-71
+        If passed a string with non-digit characters included it removes them before validating
 
 ### Things to add:
     
