@@ -12,8 +12,8 @@ Based off of old code, so defintiely not bullet proof, if you have a pull reques
 ### Example of usage
     var kennitala = require('kennitala');
     
-    kennitala.clean('310896DIRTYSSID2099'); '3108962099'
-    kennitala.clean(3108962099); '3108962099'
+    kennitala.clean('310896DIRTYSSID2099'); // '3108962099'
+    kennitala.clean(3108962099);            // '3108962099'
     
     kennitala.isPerson('3108962099');            // True
     kennitala.isPerson('310896-2099');           // True
