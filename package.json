@@ -10,7 +10,7 @@
     "url": "https://github.com/HermannBjorgvin/Kennitala.git"
   },
   "scripts": {
-    "test": "grunt && node test/test.js"
+    "test": "node test/test.js"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
