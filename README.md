@@ -1,5 +1,5 @@
 # Kennitala
-A validator for Icelandic kennitölur in node
+A validator and general utility for Icelandic kennitölur in Javascript
 
 [![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala)
 
