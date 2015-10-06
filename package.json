@@ -1,6 +1,6 @@
 {
   "name": "kennitala",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A validator module to check the checksum of Icelandic kennitölur",
   "main": "kennitala.js",
   "author": "Hermann.is",
