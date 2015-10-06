@@ -68,7 +68,7 @@
 	function formatKennitala(p_kennitala){
 		var kennitala = ""+p_kennitala;
 
-		kennitala = kennitala.replace(/[^0-9]/, '');
+		kennitala = kennitala.replace(/(\D)+/g, '');
 
 		return kennitala;
 	};
