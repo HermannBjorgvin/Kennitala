@@ -9,4 +9,4 @@ node_js:
   - "0.6"
   - "iojs"
 
-script: npm install --production
+install: npm install --production
