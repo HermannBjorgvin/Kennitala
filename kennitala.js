@@ -2,8 +2,12 @@
 
 	var kennitala = {};
 
-	kennitala.isValidPerson = function(kennitala){
+	kennitala.isPerson = function(kennitala){
 		var kt = formatKennitala(kennitala);
+
+		if (kt.length !== 10) {
+			return false;
+		};
 
 		if (!isPerson(kt)) {
 			return false;
@@ -20,8 +24,12 @@
 		return (remainder == 11 && secretNr == 0) || remainder == secretNr;
 	};
 
-	kennitala.isValidCompany = function(kennitala){
+	kennitala.isCompany = function(kennitala){
 		var kt = formatKennitala(kennitala);
+
+		if (kt.length !== 10) {
+			return false;
+		};
 
 		if (!isCompany(kt)) {
 			return false;

@@ -1,2 +1,34 @@
 
-throw new Error('Shit, something failed!');
+function failedTestError(){
+	throw new Error('General error, test failed or gave unexpected response');	
+}
+
+// -----------------------------
+// | Valdiate human kennitölur |
+// -----------------------------
+try {
+
+}
+catch (e) {
+	throw e;
+}
+
+// -------------------------------
+// | Valdiate company kennitölur |
+// -------------------------------
+try {
+	
+}
+catch (e) {
+	throw e;
+}
+
+// ----------------------------
+// | Validate .clean() method |
+// ----------------------------
+try {
+	
+}
+catch (e) {
+	throw e;
+}
