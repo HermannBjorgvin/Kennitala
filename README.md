@@ -1,7 +1,9 @@
 # Kennitala
 A validator for Icelandic kennitölur in node
 
-Installing with npm:
+[![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala)
+
+Installation with npm:
 
     $ npm install kennitala
 
