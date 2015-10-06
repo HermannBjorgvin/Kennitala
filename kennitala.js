@@ -20,7 +20,7 @@
 		return (remainder == 11 && secretNr == 0) || remainder == secretNr;
 	};
 
-	kennitala.isValidCompany = function(){
+	kennitala.isValidCompany = function(kennitala){
 		var kt = formatKennitala(kennitala);
 
 		if (!isCompany(kt)) {
