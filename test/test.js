@@ -1,10 +1,6 @@
 var kennitala = require('../kennitala.js');
 var should = require('chai').should();
 
-function failedTestError() {
-	throw new Error('General error, test failed or gave unexpected response');
-}
-
 describe('kennitala', function () {
 	describe('#isPerson', function () {
 		it("should validate known valid personal kennitala-s of various formats", function () {
