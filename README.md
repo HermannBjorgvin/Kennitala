@@ -44,8 +44,6 @@ Based off of old code, so defintiely not bullet proof, if you have a pull reques
         Checks if kennitala checksum is correct and if day of birth is between 41-71
         If passed a string with non-digit characters included it removes them before validating
 
-### Things to add:
+### Coming soon<sup>TM</sup>:
     
     Kennitala generator, for both people and companies
-    
-    Unit tests for everything
