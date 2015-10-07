@@ -10,5 +10,5 @@ node_js:
   - "iojs"
 
 install:
-  - npm install -g mocha 
+  - npm install -g mocha
   - npm install --production
