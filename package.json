@@ -10,13 +10,14 @@
     "url": "https://github.com/HermannBjorgvin/Kennitala.git"
   },
   "scripts": {
-    "test": "mocha",
-    "dist": "npm test && uglifyjs kennitala.js --wrap --compress --mangle --source-map dist/kennitala.min.js.map --source-map-url kennitala.min.js.map  --output dist/kennitala.min.js"
+    "test": "node_modules/.bin/mocha",
+    "uglify": "node_modules/.bin/uglifyjs kennitala.js --wrap --compress --mangle --source-map dist/kennitala.min.js.map --source-map-url kennitala.min.js.map  --output dist/kennitala.min.js",
+    "dist": "npm test && npm run uglify"
   },
   "dependencies": {},
   "devDependencies": {
-    "chai": "^3.3.0",
-    "mocha": "^2.3.3",
+    "chai": "*",
+    "mocha": "*",
     "uglify-js": "^2.4.24"
   }
 }
