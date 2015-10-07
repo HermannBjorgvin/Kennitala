@@ -1,85 +1,70 @@
-(function () {
+var kennitala = {};
+var MAGIC_NUMBERS = [3, 2, 7, 6, 5, 4, 3, 2, 0, 0];
 
-	var kennitala = {};
+kennitala.isPerson = function (kennitala) {
+	return evaluate(kennitala, isPerson);
+};
 
-	kennitala.isPerson = function(kennitala){
-		var kt = formatKennitala(kennitala);
+kennitala.isCompany = function (kennitala) {
+	return evaluate(kennitala, isCompany);
+};
 
-		if (kt.length !== 10) {
-			return false;
-		};
-
-		if (!isPerson(kt)) {
-			return false;
-		};
-
-		var sum =	kt.charAt(0) * 3 + kt.charAt(1) * 2 +
-					kt.charAt(2) * 7 + kt.charAt(3) * 6 +
-					kt.charAt(4) * 5 + kt.charAt(5) * 4 +
-					kt.charAt(6) * 3 + kt.charAt(7) * 2;
-
-		var remainder = 11 - (sum % 11);
-		var secretNr = kt.substr(8, 1);
-
-		return (remainder == 11 && secretNr == 0) || remainder == secretNr;
+kennitala.clean = function (kennitala) {
+	return formatKennitala(kennitala);
+};
+	
+/**
+ * Evaluates the input string as a possible kennitala, as well
+ * as running the possible entityEvaluation function on the input,
+ * before calculating the sum 
+ */
+function evaluate(input, entityEvaluationFn) {
+	var kt = formatKennitala(input);
+	if (kt.length !== 10) {
+		return false;
 	};
 
-	kennitala.isCompany = function(kennitala){
-		var kt = formatKennitala(kennitala);
-
-		if (kt.length !== 10) {
-			return false;
-		};
-
-		if (!isCompany(kt)) {
-			return false;
-		};
-
-		var sum =	kt.charAt(0) * 3 + kt.charAt(1) * 2 +
-					kt.charAt(2) * 7 + kt.charAt(3) * 6 +
-					kt.charAt(4) * 5 + kt.charAt(5) * 4 +
-					kt.charAt(6) * 3 + kt.charAt(7) * 2;
-
-		var remainder = 11 - (sum % 11);
-		var secretNr = kt.substr(8, 1);
-
-		return (remainder == 11 && secretNr == 0) || remainder == secretNr;
+	if (entityEvaluationFn && !entityEvaluationFn(kt)) {
+		return false;
 	};
+	var sum = kt.split('').reduce(function (prev, curr, i) {
+		return prev + curr * MAGIC_NUMBERS[i]
+	}, 0);
 
-	kennitala.clean = function(kennitala){
-		return formatKennitala(kennitala);
-	};
+	var remainder = 11 - (sum % 11);
+	var secretNr = parseInt(kt.substr(8, 1), 0);
 
-	// People have first two characters between 1-31
-	function isPerson(kt){
-		var d = kt.substr(0, 2);
+	return (remainder == 11 && secretNr === 0) || remainder === secretNr;
+}
 
-		return d > 0 && d <= 31; 
-	};
+// People have first two characters between 1-31
+function isPerson(kt) {
+	var d = parseInt(kt.substr(0, 2), 10);
 
-	// Companies have first two characters between 41-71
-	function isCompany(kt){
-		var d = kt.substr(0, 2);
+	return d > 0 && d <= 31;
+};
 
-		return d > 40 && d <= 71;
-	};
+// Companies have first two characters between 41-71
+function isCompany(kt) {
+	var d = parseInt(kt.substr(0, 2), 10);
 
-	// Ensures datatype is string, then removes all non-digit characters from kennitala
-	function formatKennitala(p_kennitala){
-		var kennitala = ""+p_kennitala;
+	return d > 40 && d <= 71;
+};
 
-		kennitala = kennitala.replace(/(\D)+/g, '');
+// Ensures datatype is string, then removes all non-digit characters from kennitala
+function formatKennitala(p_kennitala) {
+	var kennitala = "" + p_kennitala;
 
-		return kennitala;
-	};
+	kennitala = kennitala.replace(/(\D)+/g, '');
 
-	// UMD wrapper
-	if(typeof module !== 'undefined' && module.exports) {
-		module.exports = kennitala;
-	} else if (typeof define === 'function' && define.amd){
-		define(kennitala);
-	} else if (window) {
-		window.kennitala = kennitala;
-	}
+	return kennitala;
+};
 
-}());
+// UMD wrapper
+if (typeof module !== 'undefined' && module.exports) {
+	module.exports = kennitala;
+} else if (typeof define === 'function' && define.amd) {
+	define(kennitala);
+} else if (window) {
+	window.kennitala = kennitala;
+}
