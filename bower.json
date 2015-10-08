@@ -1,0 +1,31 @@
+{
+  "name": "kennitala",
+  "main": "kennitala.js",
+  "version": "1.0.8",
+  "homepage": "https://github.com/HermannBjorgvin/Kennitala",
+  "authors": [
+    "Hermann Björgvin Haraldsson <Hermann@hermann.is>"
+  ],
+  "description": "A javascript validator/utility for Icelandic kennitÖlur",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "iceland",
+    "kennitala",
+    "ssid",
+    "javascript",
+    "node",
+    "amd"
+  ],
+  "license": "ISC",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
