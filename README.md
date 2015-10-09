@@ -1,6 +1,10 @@
 # Kennitala
 A validator and general utility for Icelandic kennitölur in Javascript
 
+Compatible with CommonJS, AMD modules, regular Javascript.
+
+Pull requests welcome
+
 [![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala)
 
 ####Installation with npm:
@@ -10,10 +14,6 @@ A validator and general utility for Icelandic kennitölur in Javascript
 ####Installation with bower:
 
     $ bower install kennitala
-
-Compatible with CommonJS, AMD modules, regular Javascript.
-
-Pull requests welcome
 
 ### Example of usage
     var kennitala = require('kennitala');
