@@ -3,13 +3,17 @@ A validator and general utility for Icelandic kennitölur in Javascript
 
 [![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala)
 
-Installation with npm:
+####Installation with npm:
 
     $ npm install kennitala
 
+####Installation with bower:
+
+    $ bower install kennitala
+
 Compatible with CommonJS, AMD modules, regular Javascript.
 
-Based off of old code, so defintiely not bullet proof, if you have a pull request it will almost definitely get accepted.
+Pull requests welcome
 
 ### Example of usage
     var kennitala = require('kennitala');
@@ -53,6 +57,6 @@ you can open up a command line and point it to the root directory of the project
 
 To build the project, you can type `npm run dist`, which minifies the script and generates a source map, and places both in the `dist/` folder. 
 
-### Coming soon<sup>TM</sup>:
+### Coming soon<sup>TM</sup>
     
     Kennitala generator, for both people and companies
