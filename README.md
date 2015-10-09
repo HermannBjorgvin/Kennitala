@@ -44,6 +44,15 @@ Based off of old code, so defintiely not bullet proof, if you have a pull reques
         Checks if kennitala checksum is correct and if day of birth is between 41-71
         If passed a string with non-digit characters included it removes them before validating
 
+### Testing 
+
+Uses [Mocha](https://mochajs.org/) for testing. In order to execute the tests, you need to run `npm install -g mocha` first. Once you've done that 
+you can open up a command line and point it to the root directory of the project. From there you should be able to type either `npm test` or simply `mocha` to run the tests.
+
+### Building 
+
+To build the project, you can type `npm run dist`, which minifies the script and generates a source map, and places both in the `dist/` folder. 
+
 ### Coming soon<sup>TM</sup>:
     
     Kennitala generator, for both people and companies
