@@ -16,6 +16,7 @@ Pull requests welcome
     $ bower install kennitala
 
 ### Example of usage
+``` Javascript
     var kennitala = require('kennitala');
     
     kennitala.clean('310896DIRTYSSID2099'); // '3108962099'
@@ -29,6 +30,7 @@ Pull requests welcome
     kennitala.isCompany('6010100890');  // True
     kennitala.isCompany('601010-0890'); // True
     kennitala.isCompany(6010100890);    // True
+```
 
 ### API
     kennitala.clean([string, int]);
