@@ -12,7 +12,15 @@ kennitala.isCompany = function (kennitala) {
 kennitala.clean = function (kennitala) {
 	return formatKennitala(kennitala);
 };
-	
+
+kennitala.generatePerson = function(date) {
+	return generateKennitala(date, personDayDelta);
+};
+
+kennitala.generateCompany = function(date) {
+	return generateKennitala(date, companyDayDelta);
+};
+
 /**
  * Evaluates the input string as a possible kennitala, as well
  * as running the possible entityEvaluation function on the input,
@@ -50,6 +58,90 @@ function isCompany(kt) {
 
 	return d > 40 && d <= 71;
 };
+
+// Generate kennitala, takes in person/company entity function as well
+function generateKennitala(date, entityFn) {
+	var kt = '';
+
+    // Date of month
+    var day = date.getDate();
+    if (day < 10) {
+    	day = "0"+day;
+    }
+    day = ""+day;
+
+    // Raise the day by 0 or 40 depending on whether this is a person or company
+    day = entityFn(day);
+
+    kt += day;
+
+    // Month
+    var month = date.getMonth();
+    month += 1;
+
+    if (month < 10) {
+    	month = "0"+month;
+    };
+    month = ""+month;
+
+    kt += month;
+
+    // Year
+    var year = date.getFullYear();
+    year = ""+year;
+    year = year[2] + year[3];
+
+    kt += year;
+
+    /*
+    	Recursive function that generates two random digits
+    	then generates 9th character from 1-8th characters
+
+    	Checks if 9th character is 10 in which case the entire proccess is repeated
+    */
+    function randomAndChecksum() {
+	    // 7th and 8th characters are random
+	    var twoRandomDigits = "" + Math.floor(Math.random() * 10) + Math.floor(Math.random() * 10)
+
+	    var tempKt = kt + twoRandomDigits;
+
+	    // Ninth number
+	    var sum = 0;
+	    for (var i = 0; i < 8; i++) {
+	    	sum += tempKt[i] * MAGIC_NUMBERS[i];
+	    };
+
+	    sum = 11 - (sum % 11);
+	    sum = (sum == 11) ? 0 : sum;
+
+	    if (sum == 10) {
+	    	return randomAndChecksum();
+	    }
+	    else{
+	    	return twoRandomDigits + sum;
+	    };
+    }
+
+    // 7-9th characters
+    kt += randomAndChecksum();
+
+    // 10th character is century
+    var year = date.getFullYear();
+    year = ""+year;
+    kt += year[1];
+
+    return kt;
+}
+
+// People's birth day of month is raised by 0
+function personDayDelta(day){
+	return day;
+}
+
+// Companies birth day of month is raised by 40
+function companyDayDelta(day){
+	return "" + (parseInt(day, 10) + 40);
+}
 
 // Ensures datatype is string, then removes all non-digit characters from kennitala
 function formatKennitala(p_kennitala) {
