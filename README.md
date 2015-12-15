@@ -36,7 +36,8 @@ Pull requests welcome
     kennitala.clean([string, int]);
         returns string
     
-        Ensures datatype is string, then matches and removes all non-digit characters. Does not ensure the remaining string is 10 characters
+        Ensures datatype is string, then matches and removes all non-digit characters.
+        Does not ensure the remaining string is 10 characters or that the kennitala is valid
     
     kennitala.isPerson([string, int]);
         returns boolean
