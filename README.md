@@ -1,7 +1,7 @@
 # Kennitala
 A validator and general utility for Icelandic kennitölur in Javascript
 
-[![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala) [![npm version](https://badge.fury.io/js/kennitala.svg)](https://badge.fury.io/js/kennitala) [![Bower version](https://badge.fury.io/bo/kennitala.svg)](https://badge.fury.io/bo/kennitala)
+[![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala) [![npm version](https://badge.fury.io/js/kennitala.svg)](https://badge.fury.io/js/kennitala) [![Bower version](https://badge.fury.io/bo/kennitala.svg)](https://badge.fury.io/bo/kennitala) [![npm](https://img.shields.io/npm/dm/kennitala.svg?maxAge=2592000)](https://www.npmjs.com/package/kennitala)
 
 Compatible with Node, Javascript, and RequireJS (and other AMD module loaders)
 
