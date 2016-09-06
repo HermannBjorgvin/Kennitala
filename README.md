@@ -3,9 +3,14 @@ A validator and general utility for Icelandic kennitölur in Javascript
 
 [![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala) [![npm version](https://badge.fury.io/js/kennitala.svg)](https://badge.fury.io/js/kennitala) [![Bower version](https://badge.fury.io/bo/kennitala.svg)](https://badge.fury.io/bo/kennitala)
 
-Compatible with CommonJS, AMD modules, regular Javascript.
+Compatible with Node, Javascript, and RequireJS (and other AMD module loaders)
 
-Pull requests welcome
+####Usage with Javascript:
+
+```html
+<script src="kennitala.min.js"></script>
+```
+
 
 ####Installation with npm:
 
@@ -61,7 +66,6 @@ Pull requests welcome
 	    
 	    Takes Date object as a parameter and returns a new kennitala for a company
 
-
 ### Testing 
 
 Uses [Mocha](https://mochajs.org/) for testing. In order to execute the tests, you need to run `npm install -g mocha` first. Once you've done that 
@@ -70,7 +74,3 @@ you can open up a command line and point it to the root directory of the project
 ### Building 
 
 To build the project, you can type `npm run dist`, which minifies the script and generates a source map, and places both in the `dist/` folder. 
-
-### Coming soon<sup>TM</sup>
-    
-    Kennitala generator, for both people and companies
