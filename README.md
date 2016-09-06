@@ -1,7 +1,7 @@
 # Kennitala
 A validator and general utility for Icelandic kennitölur in Javascript
 
-[![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala)
+[![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala) [![npm version](https://badge.fury.io/js/kennitala.svg)](https://badge.fury.io/js/kennitala) [![Bower version](https://badge.fury.io/bo/kennitala.svg)](https://badge.fury.io/bo/kennitala)
 
 Compatible with CommonJS, AMD modules, regular Javascript.
 
@@ -50,6 +50,17 @@ Pull requests welcome
     
         Checks if kennitala checksum is correct and if day of birth is between 41-71
         If passed a string with non-digit characters included it removes them before validating
+
+	kennitala.generatePerson([date]);
+	    returns string
+	    
+	    Takes Date object as a parameter and returns a new kennitala for a person
+
+	kennitala.generateCompany([date]);
+	    returns string
+	    
+	    Takes Date object as a parameter and returns a new kennitala for a company
+
 
 ### Testing 
 
