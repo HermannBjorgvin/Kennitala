@@ -6,9 +6,6 @@ Icelandic social security number (kennitölur) utilities for servers and clients
 [![npm](https://img.shields.io/npm/dm/kennitala.svg)](https://github.com/HermannBjorgvin/Kennitala/)
 [![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala)
 
-ES5 compatability, works in browsers and old node versions without a transpiler.
-Compatible with Webpack, NPM, Yarn, Node.js, , and RequireJS (and other AMD module loaders)
-
 Install with npm:
 
 ```bash
