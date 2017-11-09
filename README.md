@@ -21,26 +21,31 @@ Compatible with Node, Javascript, and RequireJS (and other AMD module loaders)
     kennitala.isValid('3108962099') // returns True
     kennitala.isValid('8281249124') // returns False
     
+    
     // Check if kennitala is valid for a person (returns false for companies)
     kennitala.isPerson('3108962099');            // returns True
     kennitala.isPerson('601010-0890');           // returns False
     kennitala.isPerson(3108962099);              // returns True
     kennitala.isPerson('31^_^08!!96LOL20T_T99'); // returns True
     
+    
     // Checks if kennitala is valid for a company (returns false for persons)
     kennitala.isCompany('6010100890');  // True
     kennitala.isCompany('601010-0890'); // True
     kennitala.isCompany(3108962099);    // False
     
+    
     // the .format() method formats a kennitala and adds a traditional - spacer
-    // takes an optional argument for the spacer between the 6th and 7th digit
-    // defaults to '-' but can be customized with the optional parameter
+    // takes an optional parameter for the spacer between the 6th and 7th digit
+    // defaults to '-' but can be customized with an optional parameter
     kennitala.format('310896DIRTYSSID2099'); // returns '310896-2099'
     kennitala.format('3108962099', '-apple pie-') // returns '310896-apple pie-2099'
     kennitala.format('3108962099', '') // returns '3108962099'
     
+    
     // the .clean() method removes all non digit characters. ideal for database storage
     kennitala.clean(3108962099); // returns '3108962099'
+    
     
     // the .info() method returns an object with useful information
     kennitala.info('3108962099');
@@ -61,7 +66,7 @@ Compatible with Node, Javascript, and RequireJS (and other AMD module loaders)
         returns boolean
     
         Checks if kennitala checksum is correct for either a person or company
-	If passed a string with non-digit characters included it removes them before validating
+        If passed a string with non-digit characters included it removes them before validating
     
     kennitala.isPerson([string, int]);
         returns boolean
@@ -76,11 +81,11 @@ Compatible with Node, Javascript, and RequireJS (and other AMD module loaders)
         If passed a string with non-digit characters included it removes them before validating
 
     kennitala.format([string, int], ?[string]);
-	returns string
+        returns string
 	
-	Ensures datatype is string, then matches and removes all non-digit characters
-	and adds a traditional '-' spacer between 6th and 7th digit. This can be customized
-	with an optional 2nd argument.
+        Ensures datatype is string, then matches and removes all non-digit characters
+        and adds a traditional '-' spacer between 6th and 7th digit. This can be customized
+        with an optional 2nd parameter.
 	
     kennitala.clean([string, int]);
         returns string
@@ -89,14 +94,14 @@ Compatible with Node, Javascript, and RequireJS (and other AMD module loaders)
         Does not ensure the remaining string is 10 characters or that the kennitala is valid
 
     kennitala.generatePerson([date]);
-	returns string
+        returns string
 	    
-	Takes Date object as a parameter and returns a new kennitala for a person
+        Takes Date object as a parameter and returns a new kennitala for a person
 
     kennitala.generateCompany([date]);
-	returns string
+        returns string
 	    
-	Takes Date object as a parameter and returns a new kennitala for a company
+        Takes Date object as a parameter and returns a new kennitala for a company
 
 ### Testing 
 
