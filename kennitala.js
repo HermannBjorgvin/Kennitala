@@ -42,13 +42,13 @@
 	};
 
 	/*
-		Returns JSON object with relevant information about kennitala	
+		Returns object with relevant information about kennitala	
 		{
 			kennitala: char(10),
 			valid: boolean,
 			type: enum("company", "person")
 			age: int,
-			birthday: date object,
+			birthday: Date object,
 			birthdayReadable: Human readable Date String
 		}
 	*/
