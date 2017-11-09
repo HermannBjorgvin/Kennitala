@@ -1,10 +1,10 @@
 # Kennitala
 Icelandic social security number (kennitölur) utilities for servers and clients.
 
+[![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala)
 [![npm](https://img.shields.io/npm/v/kennitala.svg)](https://github.com/HermannBjorgvin/Kennitala)
 [![Bower](https://img.shields.io/bower/v/kennitala.svg)](https://github.com/HermannBjorgvin/kennitala)
 [![npm](https://img.shields.io/npm/dm/kennitala.svg)](https://github.com/HermannBjorgvin/Kennitala/)
-[![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala)
 
 Install with npm:
 
