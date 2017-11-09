@@ -1,19 +1,33 @@
-# Kennitala
-Icelandic social security number (kennitölur) utilities for servers and clients
+<h1 align=center>Kennitala</h1>
+Icelandic social security number (kennitölur) utilities for servers and clients.
 
-[![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala) [![npm version](https://badge.fury.io/js/kennitala.svg)](https://badge.fury.io/js/kennitala) [![Bower version](https://badge.fury.io/bo/kennitala.svg)](https://badge.fury.io/bo/kennitala) [![npm](https://img.shields.io/npm/dm/kennitala.svg?maxAge=2592000)](https://www.npmjs.com/package/kennitala)
+[![npm](https://img.shields.io/npm/v/kennitala.svg)](https://github.com/HermannBjorgvin/Kennitala)
+[![Bower](https://img.shields.io/bower/v/kennitala.svg)](https://github.com/HermannBjorgvin/kennitala)
+[![npm](https://img.shields.io/npm/dm/kennitala.svg)](https://github.com/HermannBjorgvin/Kennitala/)
+[![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala)
 
-Compatible with Node, Javascript, and RequireJS (and other AMD module loaders)
+ES5 compatability, works in browsers and old node versions without a transpiler.
+Compatible with Webpack, NPM, Yarn, Node.js, , and RequireJS (and other AMD module loaders)
 
-#### Installation with npm:
+Install with npm:
 
-    $ npm install kennitala
+```bash
+npm install kennitala
+```
 
-#### Installation with bower:
+Install with yarn:
 
-    $ bower install kennitala
+```bash
+yarn add kennitala
+```
 
-#### Examples
+Install with yarn:
+
+```bash
+bower install kennitala
+```
+
+<h3 align=center>Examples</h3>
 ``` Javascript
 const kennitala = require('kennitala');
     
@@ -66,7 +80,7 @@ kennitala.info('3108962099');
 }
 ```
 
-### API
+<h3 align=center>API documentation</h3>
     
     kennitala.isValid([string, int]);
         returns boolean
