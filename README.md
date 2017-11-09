@@ -38,9 +38,12 @@ kennitala.isCompany(3108962099);    // False
 // the .format() method formats a kennitala and adds a traditional - spacer
 // takes an optional parameter for the spacer between the 6th and 7th digit
 // defaults to '-' but can be customized with an optional parameter
-kennitala.format('310896DIRTYSSID2099'); // returns '310896-2099'
-kennitala.format('3108962099', '-apple pie-') // returns '310896-apple pie-2099'
-kennitala.format('3108962099', '') // returns '3108962099'
+kennitala.format('310896DIRTYSSID2099');
+// returns '310896-2099'
+kennitala.format('3108962099', '-apple pie-')
+// returns '310896-apple pie-2099'
+kennitala.format('3108962099', '')
+// returns '3108962099'
 
 
 // the .clean() method removes all non digit characters. ideal for database storage
