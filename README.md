@@ -25,6 +25,7 @@ bower install kennitala
 ```
 
 <h3 align=center>Examples</h3>
+
 ``` Javascript
 const kennitala = require('kennitala');
     
