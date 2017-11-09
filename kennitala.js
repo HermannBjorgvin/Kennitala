@@ -1,7 +1,16 @@
 (function(){
 	
+	/*
+		Library API exports
+	*/
 	var kennitala = {};
-	var MAGIC_NUMBERS = [3, 2, 7, 6, 5, 4, 3, 2, 0, 0];
+
+	kennitala.isValid = function(kennitala) {
+		var isPerson = evaluate(kennitala, isPerson);
+		var isCompany = evaluate(kennitala, isCompany);
+
+		return (isPerson || isCompany);
+	}
 
 	kennitala.isPerson = function (kennitala) {
 		return evaluate(kennitala, isPerson);
@@ -15,6 +24,15 @@
 		return formatKennitala(kennitala);
 	};
 
+	kennitala.format = function (kennitala, spacer) {
+		var kt = formatKennitala(kennitala);
+		spacer = typeof spacer !== 'undefined' ? spacer : '-';
+
+		kt = kt.substring(0,6) + spacer + kt.substring(6, 10);
+
+		return kt
+	};
+
 	kennitala.generatePerson = function(date) {
 		return generateKennitala(date, personDayDelta);
 	};
@@ -23,11 +41,70 @@
 		return generateKennitala(date, companyDayDelta);
 	};
 
+	/*
+		Returns JSON object with relevant information about kennitala	
+		{
+			kennitala: char(10),
+			valid: boolean,
+			type: enum("company", "person")
+			age: int,
+			birthday: date object,
+			birthdayReadable: Human readable Date String
+		}
+	*/
+	kennitala.info = function(kt){
+		var info = {};
+
+		info.kt = formatKennitala(kt);
+
+		var isPersonType = evaluate(kt, isPerson);
+		var isCompanyType = evaluate(kt, isCompany);
+
+		// Check if kennitala is a valid company or person
+		if (isPersonType || isCompanyType){
+			info.valid = true;
+			info.type = isPersonType === true ? "person" : "company";
+
+			// Get birthday Date object
+			var kennitala = formatKennitala(kt);
+		    var day = kennitala.substring(0, 2);
+		    
+		    // Company day delta
+		    if (day > 31) {
+		        day = day - 40;
+		    }
+		    var month = kennitala.substring(2, 4);
+
+		    // Century
+		    var year = (kennitala.substring(9, 10) == 0 ? 20 : 19) + kennitala.substring(4, 6);
+		    var birthday = new Date(year, month - 1, day);
+		    info.birthday = birthday;
+
+		    // Birthday readable string
+		    info.birthdayReadable = birthday.toDateString();
+
+		    // Age
+		    var today = new Date();
+		    var diff = today-birthday;
+		    var age = Math.floor(diff/(1000*60*60*24*365.2422));
+
+		    info.age = age;
+
+			return info;
+		}
+		else {
+			info.valid = false;
+			
+			return info;
+		}
+	}
+
 	/**
 	 * Evaluates the input string as a possible kennitala, as well
 	 * as running the possible entityEvaluation function on the input,
 	 * before calculating the sum 
 	 */
+	var MAGIC_NUMBERS = [3, 2, 7, 6, 5, 4, 3, 2, 0, 0];
 	function evaluate(input, entityEvaluationFn) {
 		var kt = formatKennitala(input);
 		if (kt.length !== 10) {
@@ -150,6 +227,10 @@
 		var kennitala = "" + p_kennitala;
 
 		kennitala = kennitala.replace(/(\D)+/g, '');
+
+		if (kennitala.length === 9) {
+			kennitala = "0" + kennitala;
+		}
 
 		return kennitala;
 	};
