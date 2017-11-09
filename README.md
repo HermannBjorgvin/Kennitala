@@ -1,4 +1,4 @@
-<h1 align=center>Kennitala</h1>
+# Kennitala
 Icelandic social security number (kennitölur) utilities for servers and clients.
 
 [![npm](https://img.shields.io/npm/v/kennitala.svg)](https://github.com/HermannBjorgvin/Kennitala)
