@@ -1,48 +1,90 @@
 # Kennitala
-A validator and general utility for Icelandic kennitölur in Javascript
+Icelandic social security number (kennitölur) utilities for servers and clients.
 
-[![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala) [![npm version](https://badge.fury.io/js/kennitala.svg)](https://badge.fury.io/js/kennitala) [![Bower version](https://badge.fury.io/bo/kennitala.svg)](https://badge.fury.io/bo/kennitala) [![npm](https://img.shields.io/npm/dm/kennitala.svg?maxAge=2592000)](https://www.npmjs.com/package/kennitala)
+[![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala)
+[![npm](https://img.shields.io/npm/v/kennitala.svg)](https://github.com/HermannBjorgvin/Kennitala)
+[![Bower](https://img.shields.io/bower/v/kennitala.svg)](https://github.com/HermannBjorgvin/kennitala)
+[![npm](https://img.shields.io/npm/dm/kennitala.svg)](https://github.com/HermannBjorgvin/Kennitala/)
 
-Compatible with Node, Javascript, and RequireJS (and other AMD module loaders)
+Install with npm:
 
-####Usage with Javascript:
-
-```html
-<script src="kennitala.min.js"></script>
+```bash
+npm install kennitala
 ```
 
+Install with yarn:
 
-####Installation with npm:
+```bash
+yarn add kennitala
+```
 
-    $ npm install kennitala
+Install with yarn:
 
-####Installation with bower:
+```bash
+bower install kennitala
+```
 
-    $ bower install kennitala
+<h3 align=center>Examples</h3>
 
-### Example of usage
 ``` Javascript
-    var kennitala = require('kennitala');
+const kennitala = require('kennitala');
     
-    kennitala.clean('310896DIRTYSSID2099'); // '3108962099'
-    kennitala.clean(3108962099);            // '3108962099'
-    
-    kennitala.isPerson('3108962099');            // True
-    kennitala.isPerson('310896-2099');           // True
-    kennitala.isPerson(3108962099);              // True
-    kennitala.isPerson('31^_^08!!96LOL20T_T99'); // True
-    
-    kennitala.isCompany('6010100890');  // True
-    kennitala.isCompany('601010-0890'); // True
-    kennitala.isCompany(6010100890);    // True
+// Check if kennitala is valid for either a company or individual
+kennitala.isValid('3108962099'); // returns True
+kennitala.isValid('8281249124'); // returns False
+
+
+// Check if kennitala is valid for a person (returns false for companies)
+kennitala.isPerson('3108962099');            // returns True
+kennitala.isPerson('601010-0890');           // returns False
+kennitala.isPerson(3108962099);              // returns True
+kennitala.isPerson('31^_^08!!96LOL20T_T99'); // returns True
+
+
+// Checks if kennitala is valid for a company (returns false for persons)
+kennitala.isCompany('6010100890');  // True
+kennitala.isCompany('601010-0890'); // True
+kennitala.isCompany(3108962099);    // False
+
+
+// the .format() method formats a kennitala and adds a traditional - spacer
+// takes an optional parameter for the spacer between the 6th and 7th digit
+// defaults to '-' but can be customized with an optional parameter
+
+kennitala.format('310896DIRTYSSID2099');
+// returns '310896-2099'
+
+kennitala.format('3108962099', '-apple pie-');
+// returns '310896-apple pie-2099'
+
+kennitala.format('3108962099', '');
+// returns '3108962099'
+
+
+// the .clean() method removes all non digit characters. ideal for database storage
+kennitala.clean(3108962099); // returns '3108962099'
+
+
+// the .info() method returns an object with useful information
+kennitala.info('3108962099');
+// returns
+{ 
+	kt: '3108962099',
+	valid: true,
+	type: 'person',
+	birthday: 1996-08-31T00:00:00.000Z,
+	birthdayReadable: 'Sat Aug 31 1996',
+	age: 21
+}
 ```
 
-### API
-    kennitala.clean([string, int]);
-        returns string
+<h3 align=center>API documentation</h3>
     
-        Ensures datatype is string, then matches and removes all non-digit characters.
-        Does not ensure the remaining string is 10 characters or that the kennitala is valid
+    kennitala.isValid([string, int]);
+        returns boolean
+    
+        Checks if kennitala checksum is correct for either a person or company
+        If passed a string with non-digit characters included it removes them before validating
     
     kennitala.isPerson([string, int]);
         returns boolean
@@ -56,15 +98,28 @@ Compatible with Node, Javascript, and RequireJS (and other AMD module loaders)
         Checks if kennitala checksum is correct and if day of birth is between 41-71
         If passed a string with non-digit characters included it removes them before validating
 
-	kennitala.generatePerson([date]);
-	    returns string
-	    
-	    Takes Date object as a parameter and returns a new kennitala for a person
+    kennitala.format([string, int], ?[string]);
+        returns string
+	
+        Ensures datatype is string, then matches and removes all non-digit characters
+        and adds a traditional '-' spacer between 6th and 7th digit. This can be customized
+        with an optional 2nd parameter.
+	
+    kennitala.clean([string, int]);
+        returns string
+    
+        Ensures datatype is string, then matches and removes all non-digit characters.
+        Does not ensure the remaining string is 10 characters or that the kennitala is valid
 
-	kennitala.generateCompany([date]);
-	    returns string
+    kennitala.generatePerson([date]);
+        returns string
 	    
-	    Takes Date object as a parameter and returns a new kennitala for a company
+        Takes Date object as a parameter and returns a new kennitala for a person
+
+    kennitala.generateCompany([date]);
+        returns string
+	    
+        Takes Date object as a parameter and returns a new kennitala for a company
 
 ### Testing 
 
