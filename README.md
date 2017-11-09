@@ -18,7 +18,7 @@ Install with yarn:
 yarn add kennitala
 ```
 
-Install with yarn:
+Install with bower:
 
 ```bash
 bower install kennitala
@@ -86,6 +86,17 @@ kennitala.info('3108962099');
         Checks if kennitala checksum is correct for either a person or company
         If passed a string with non-digit characters included it removes them before validating
     
+    kennitala.info([string, int]);
+    	returns object with relevant information about this kennitala
+        {
+            kennitala: char(10),
+            valid: boolean,
+            type: enum("company", "person")
+            age: int,
+            birthday: Date object,
+            birthdayReadable: Human readable Date String
+        }
+
     kennitala.isPerson([string, int]);
         returns boolean
     
