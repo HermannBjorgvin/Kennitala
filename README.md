@@ -88,7 +88,7 @@ kennitala.info('3108962099');
     
     kennitala.info([string, int]);
     	returns object with relevant information about this kennitala
-	{
+        {
             kennitala: char(10),
             valid: boolean,
             type: enum("company", "person")
