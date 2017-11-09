@@ -18,8 +18,8 @@ Compatible with Node, Javascript, and RequireJS (and other AMD module loaders)
 const kennitala = require('kennitala');
     
 // Check if kennitala is valid for either a company or individual
-kennitala.isValid('3108962099') // returns True
-kennitala.isValid('8281249124') // returns False
+kennitala.isValid('3108962099'); // returns True
+kennitala.isValid('8281249124'); // returns False
 
 
 // Check if kennitala is valid for a person (returns false for companies)
@@ -38,11 +38,14 @@ kennitala.isCompany(3108962099);    // False
 // the .format() method formats a kennitala and adds a traditional - spacer
 // takes an optional parameter for the spacer between the 6th and 7th digit
 // defaults to '-' but can be customized with an optional parameter
+
 kennitala.format('310896DIRTYSSID2099');
 // returns '310896-2099'
-kennitala.format('3108962099', '-apple pie-')
+
+kennitala.format('3108962099', '-apple pie-');
 // returns '310896-apple pie-2099'
-kennitala.format('3108962099', '')
+
+kennitala.format('3108962099', '');
 // returns '3108962099'
 
 
