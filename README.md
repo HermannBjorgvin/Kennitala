@@ -3,7 +3,6 @@ Icelandic social security number (kennitölur) utilities for servers and clients
 
 [![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala)
 [![npm](https://img.shields.io/npm/v/kennitala.svg)](https://github.com/HermannBjorgvin/Kennitala)
-[![Bower](https://img.shields.io/bower/v/kennitala.svg)](https://github.com/HermannBjorgvin/kennitala)
 [![npm](https://img.shields.io/npm/dm/kennitala.svg)](https://github.com/HermannBjorgvin/Kennitala/)
 
 Install with npm:
@@ -16,12 +15,6 @@ Install with yarn:
 
 ```bash
 yarn add kennitala
-```
-
-Install with bower:
-
-```bash
-bower install kennitala
 ```
 
 <h3 align=center>Examples</h3>
