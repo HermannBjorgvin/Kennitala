@@ -67,7 +67,7 @@ kennitala.info('3108962099');
 	type: 'person',
 	birthday: 1996-08-31T00:00:00.000Z,
 	birthdayReadable: 'Sat Aug 31 1996',
-	age: 21
+	age: 22
 }
 ```
 
