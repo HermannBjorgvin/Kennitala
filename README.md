@@ -20,7 +20,7 @@ yarn add kennitala
 ### Sponsored by BrowserStack
 <img width=300 src="https://raw.github.com/HermannBjorgvin/Kennitala/master/Browserstack-logo.svg?sanitize=true">
 
-> I am using BrowserStack to easily test this library accross different browsers and operating systems from the comfort of my personal Linux machines, no need to set up my own machine for testing.
+> I am using BrowserStack to easily test this library accross different browsers and operating systems from the comfort of my personal Linux machines, no need to set up a Windows or MacOS machine for testing.
 > - Hermann Björgvin
 
 
