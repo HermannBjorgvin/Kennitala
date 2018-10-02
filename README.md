@@ -1,4 +1,4 @@
-<h1 align=center>Kennitala</h1>
+<h1 align=left>Kennitala</h1>
 Icelandic social security number (kennitölur) utilities for servers and clients.
 
 [![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala)
@@ -16,6 +16,13 @@ Install with yarn:
 ```bash
 yarn add kennitala
 ```
+
+### Sponsored by BrowserStack
+<img width=300 src="https://raw.github.com/HermannBjorgvin/Kennitala/master/Browserstack-logo.svg?sanitize=true">
+
+> I am using BrowserStack to easily test this library accross different browsers and operating systems from the comfort of my personal Linux machines, no need to set up my own machine for testing.
+> - Hermann Björgvin
+
 
 <h3 align=left>Examples</h3>
 
