@@ -1,4 +1,4 @@
-# Kennitala
+<h1 align=center>Kennitala</h1>
 Icelandic social security number (kennitölur) utilities for servers and clients.
 
 [![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala)
@@ -17,7 +17,7 @@ Install with yarn:
 yarn add kennitala
 ```
 
-<h3 align=center>Examples</h3>
+<h3 align=left>Examples</h3>
 
 ``` Javascript
 const kennitala = require('kennitala');
@@ -71,7 +71,7 @@ kennitala.info('3108962099');
 }
 ```
 
-<h3 align=center>API documentation</h3>
+<h3 align=left>API documentation</h3>
     
     kennitala.isValid([string, int]);
         returns boolean
