@@ -17,15 +17,6 @@ Install with yarn:
 yarn add kennitala
 ```
 
-### Sponsored by BrowserStack
-Since Oct 2nd 2018 we are proudly sponsored in part by BrowserStack which sponsors thousands of open source projects. The plan is to implement automated testing for older browsers which will give us and our users good overview of the support they can expect for older browsers and operating systems.
-
-<img width=300 src="https://raw.github.com/HermannBjorgvin/Kennitala/master/Browserstack-logo.svg?sanitize=true">
-
-> I am using BrowserStack to easily test this library accross different browsers and operating systems from the comfort of my personal Linux machines, no need to set up a Windows or MacOS machine for testing.
-> - Hermann Björgvin
-
-
 <h3 align=left>Examples</h3>
 
 ``` Javascript
@@ -142,3 +133,12 @@ you can open up a command line and point it to the root directory of the project
 ### Building 
 
 To build the project, you can type `npm run dist`, which minifies the script and generates a source map, and places both in the `dist/` folder. 
+
+
+### Sponsored by BrowserStack
+Since Oct 2nd 2018 we are proudly sponsored in part by BrowserStack which sponsors thousands of open source projects. The plan is to implement automated testing for older browsers which will give us and our users good overview of the support they can expect for older browsers and operating systems.
+
+<img width=300 src="https://raw.github.com/HermannBjorgvin/Kennitala/master/Browserstack-logo.svg?sanitize=true">
+
+> I am using BrowserStack to easily test this library accross different browsers and operating systems from the comfort of my personal Linux machines, no need to set up a Windows or MacOS machine for testing.
+> - Hermann Björgvin
