@@ -1,9 +1,9 @@
 {
   "name": "kennitala",
-  "version": "1.1.0",
-  "description": "A validator module to check the checksum of Icelandic kennitölur",
-  "main": "kennitala.js",
-  "author": "Hermann.is",
+  "version": "1.1.1",
+  "description": "A utility library for working with Icelandic national ID's",
+  "main": "dist/kennitala.min.js",
+  "author": "Hermann Björgvin Haraldsson",
   "license": "ISC",
   "repository": {
     "type": "git",
@@ -11,7 +11,7 @@
   },
   "scripts": {
     "test": "node_modules/.bin/mocha",
-    "uglify": "node_modules/.bin/uglifyjs kennitala.js --wrap --compress --mangle --source-map dist/kennitala.min.js.map --source-map-url kennitala.min.js.map  --output dist/kennitala.min.js",
+    "uglify": "node_modules/.bin/uglifyjs kennitala.js --wrap kennitala -c -m -o dist/kennitala.min.js --source-map url=kennitala.min.js",
     "dist": "npm test && npm run uglify"
   },
   "dependencies": {},

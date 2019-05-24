@@ -42,7 +42,7 @@
 		}, 0);
 
 		var remainder = 11 - (sum % 11);
-		var secretNr = parseInt(kt.substr(8, 1), 0);
+		var secretNr = parseInt(kt.substr(8, 1), 10);
 
 		return (remainder == 11 && secretNr === 0) || remainder === secretNr;
 	}
@@ -101,9 +101,17 @@
 
 	    	Checks if 9th character is 10 in which case the entire proccess is repeated
 	    */
-	    function randomAndChecksum() {
-		    // 7th and 8th characters are random
-		    var twoRandomDigits = "" + Math.floor(Math.random() * 10) + Math.floor(Math.random() * 10)
+	    function randomAndChecksum(kt) {
+		    /* 
+		    	7th and 8th characters are seemingly random for companies
+		    	but are incrementing from 20-99 for individuals
+		    */
+		    var digit7 = "" + Math.floor(Math.random() * 10);
+		    var digit8 = "" + Math.floor(Math.random() * 10)
+
+		    if (isPerson(kt)) {
+		        var digit7 = "" + Math.floor(Math.random() * 8 + 2);
+		    }
 
 		    var tempKt = kt + twoRandomDigits;
 
@@ -117,7 +125,7 @@
 		    sum = (sum == 11) ? 0 : sum;
 
 		    if (sum == 10) {
-		    	return randomAndChecksum();
+		    	return randomAndChecksum(kt);
 		    }
 		    else{
 		    	return twoRandomDigits + sum;
@@ -125,7 +133,7 @@
 	    }
 
 	    // 7-9th characters
-	    kt += randomAndChecksum();
+	    kt += randomAndChecksum(kt);
 
 	    // 10th character is century
 	    var year = date.getFullYear();
