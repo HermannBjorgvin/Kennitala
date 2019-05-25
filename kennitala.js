@@ -113,7 +113,7 @@
 		        var digit7 = "" + Math.floor(Math.random() * 8 + 2);
 		    }
 
-		    var tempKt = kt + twoRandomDigits;
+		    var tempKt = kt + digit7 + digit8;
 
 		    // Ninth number
 		    var sum = 0;
@@ -128,7 +128,7 @@
 		    	return randomAndChecksum(kt);
 		    }
 		    else{
-		    	return twoRandomDigits + sum;
+		    	return digit7 + digit8 + sum;
 		    };
 	    }
 
