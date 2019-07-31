@@ -17,7 +17,7 @@ Install with yarn:
 yarn add kennitala
 ```
 
-<h3 align=left>Examples</h3>
+### Examples
 
 ``` Javascript
 const kennitala = require('kennitala');
@@ -25,7 +25,24 @@ const kennitala = require('kennitala');
 // Check if kennitala is valid for either a company or individual
 kennitala.isValid('3108962099'); // returns True
 kennitala.isValid('8281249124'); // returns False
+```
 
+### More examples
+
+``` Javascript
+const kennitala = require('kennitala');
+
+// the .info() method returns an object with useful information
+kennitala.info('3108962099');
+// returns
+{ 
+	kt: '3108962099',
+	valid: true,
+	type: 'person',
+	birthday: 1996-08-31T00:00:00.000Z,
+	birthdayReadable: 'Sat Aug 31 1996',
+	age: 22
+}
 
 // Check if kennitala is valid for a person (returns false for companies)
 kennitala.isPerson('3108962099');            // returns True
@@ -33,12 +50,10 @@ kennitala.isPerson('601010-0890');           // returns False
 kennitala.isPerson(3108962099);              // returns True
 kennitala.isPerson('31^_^08!!96LOL20T_T99'); // returns True
 
-
 // Checks if kennitala is valid for a company (returns false for persons)
 kennitala.isCompany('6010100890');  // True
 kennitala.isCompany('601010-0890'); // True
 kennitala.isCompany(3108962099);    // False
-
 
 // the .format() method formats a kennitala and adds a traditional - spacer
 // takes an optional parameter for the spacer between the 6th and 7th digit
@@ -53,25 +68,11 @@ kennitala.format('3108962099', '-apple pie-');
 kennitala.format('3108962099', '');
 // returns '3108962099'
 
-
 // the .clean() method removes all non digit characters. ideal for database storage
 kennitala.clean(3108962099); // returns '3108962099'
-
-
-// the .info() method returns an object with useful information
-kennitala.info('3108962099');
-// returns
-{ 
-	kt: '3108962099',
-	valid: true,
-	type: 'person',
-	birthday: 1996-08-31T00:00:00.000Z,
-	birthdayReadable: 'Sat Aug 31 1996',
-	age: 22
-}
 ```
 
-<h3 align=left>API documentation</h3>
+### API documentation
     
     kennitala.isValid([string, int]);
         returns boolean
