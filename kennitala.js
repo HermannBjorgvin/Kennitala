@@ -6,10 +6,10 @@
 	var kennitala = {};
 
 	kennitala.isValid = function(kennitala) {
-		var isPerson = evaluate(kennitala, isPerson);
-		var isCompany = evaluate(kennitala, isCompany);
+		var person = evaluate(kennitala, isPerson);
+		var company = evaluate(kennitala, isCompany);
 
-		return (isPerson || isCompany);
+		return (person || company);
 	}
 
 	kennitala.isPerson = function (kennitala) {
