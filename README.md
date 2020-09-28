@@ -83,7 +83,7 @@ kennitala.clean(3108962099); // returns '3108962099'
     kennitala.info([string, int]);
     	returns object with relevant information about this kennitala
         {
-            kennitala: char(10),
+            kt: char(10),
             valid: boolean,
             type: enum("company", "person")
             age: int,
