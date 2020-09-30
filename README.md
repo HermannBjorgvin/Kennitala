@@ -1,9 +1,10 @@
 <h1 align=left>Kennitala</h1>
-Icelandic social security number (kennitölur) utilities for servers and clients.
+Icelandic national ID (kennitölur) utilities for servers and clients. Now with TypeScript support!
 
 [![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala)
 [![npm](https://img.shields.io/npm/v/kennitala.svg)](https://www.npmjs.com/package/kennitala)
 [![npm](https://img.shields.io/npm/dm/kennitala.svg)](https://www.npmjs.com/package/kennitala)
+![npm bundle size](https://img.shields.io/bundlephobia/min/kennitala)
 
 Install with npm:
 
@@ -25,6 +26,19 @@ const kennitala = require('kennitala');
 // Check if kennitala is valid for either a company or individual
 kennitala.isValid('3108962099'); // returns True
 kennitala.isValid('8281249124'); // returns False
+```
+
+### Heads up for storing in Databases
+
+This library will validate kennitölur with `-` spacers and no spacer, so remember to sanitize your kennitala before storing in a database!
+
+This can be done with the included `.clean` or `.format` functions like so:
+
+```Javascript
+const kennitala = require('kennitala');
+
+kennitala.clean('310896DIRTYSSID2099');
+// returns '3108962099'
 ```
 
 ### More examples
@@ -83,7 +97,7 @@ kennitala.clean(3108962099); // returns '3108962099'
     kennitala.info([string, int]);
     	returns object with relevant information about this kennitala
         {
-            kennitala: char(10),
+            kt: char(10),
             valid: boolean,
             type: enum("company", "person")
             age: int,
