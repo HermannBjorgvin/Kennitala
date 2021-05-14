@@ -1,6 +1,6 @@
 {
   "name": "kennitala",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Icelandic social security number (kennitölur) utilities for servers and clients",
   "main": "dist/kennitala.min.js",
   "types": "./dist/kennitala.min.d.ts",
@@ -15,7 +15,6 @@
     "uglify": "node_modules/.bin/uglifyjs kennitala.js --wrap --compress --mangle --source-map dist/kennitala.min.js.map --source-map-url kennitala.min.js.map  --output dist/kennitala.min.js",
     "dist": "npm test && npm run uglify"
   },
-  "dependencies": {},
   "devDependencies": {
     "chai": "*",
     "mocha": "*",

@@ -14,6 +14,10 @@ describe('kennitala', function () {
 			kennitala.isPerson('6010100890').should.equal(false);
 			kennitala.isPerson(9908962099).should.equal(false);
 		});
+
+		it("should not validate kennitala with 13th month", function () {
+			kennitala.isPerson('1337991337').should.equal(false);
+		});
 	});
 
 	describe("#isCompany", function () {
