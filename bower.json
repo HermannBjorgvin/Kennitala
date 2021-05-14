@@ -1,7 +1,7 @@
 {
   "name": "kennitala",
   "main": "dist/kennitala.min.js",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "homepage": "https://github.com/HermannBjorgvin/Kennitala",
   "authors": [
     "Hermann Björgvin Haraldsson <hermann@hermann.is>"

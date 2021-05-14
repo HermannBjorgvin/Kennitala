@@ -149,15 +149,17 @@
     // People have first two characters between 1-31
     function isPerson(kt) {
         var d = parseInt(kt.substr(0, 2), 10);
+        var m = parseInt(kt.substr(2, 2), 10);
 
-        return d > 0 && d <= 31;
+        return d > 0 && d <= 31 && m > 0 && m <= 12;
     }
 
     // Companies have first two characters between 41-71
     function isCompany(kt) {
         var d = parseInt(kt.substr(0, 2), 10);
+        var m = parseInt(kt.substr(2, 2), 10);
 
-        return d > 40 && d <= 71;
+        return d > 40 && d <= 71 && m > 0 && m <= 12;
     }
 
     // Generate kennitala, takes in person/company entity function as well
