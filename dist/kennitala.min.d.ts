@@ -3,7 +3,7 @@ declare module "kennitala" {
     export function isPerson(kennitala: string | number): boolean;
     export function isCompany(kennitala: string | number): boolean;
 
-    export function clean(kennitala: string | number): string;
+    export function sanitize(kennitala: string | number): string;
     export function format(kennitala: string | number, spacer?: string): string;
 
     export function generatePerson(date: Date): string;
