@@ -6,21 +6,41 @@
     var kennitala = {};
 
     kennitala.isValid = function(kennitala) {
+        // Adds support for temporary KT
+        var kt = formatKennitala(kennitala);
+        if (kt.length === 10 && (kt.substring(0, 1) === '8' || kt.substring(0, 1) === '9')) {
+            return true;
+        }
+
         var person = evaluate(kennitala, isPerson);
         var company = evaluate(kennitala, isCompany);
+        var dateValid = isValidDate(kennitala)
 
-        return (person || company);
+        return dateValid && (person || company);
     }
 
-    kennitala.isPerson = function (kennitala) {
-        return evaluate(kennitala, isPerson);
+    kennitala.isPerson = function(kennitala) {
+        var dateValid = isValidDate(kennitala)
+
+        return dateValid && evaluate(kennitala, isPerson);
     };
 
-    kennitala.isCompany = function (kennitala) {
-        return evaluate(kennitala, isCompany);
+    kennitala.isCompany = function(kennitala) {
+        var dateValid = isValidDate(kennitala)
+
+        return dateValid && evaluate(kennitala, isCompany);
     };
 
-    kennitala.clean = function (kennitala) {
+    kennitala.isTemporary = function(kennitala) {
+        var kt = formatKennitala(kennitala)
+        if (kt.length === 10 && (kt.substring(0, 1) === '8' || kt.substring(0, 1) === '9')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    kennitala.sanitize = function (kennitala) {
         return formatKennitala(kennitala);
     };
 
@@ -141,25 +161,54 @@
         }, 0);
 
         var remainder = 11 - (sum % 11);
-        var secretNr = parseInt(kt.substr(8, 1), 0);
+        var secretNr = parseInt(kt.substring(8, 9), 0);
 
         return (remainder == 11 && secretNr === 0) || remainder === secretNr;
     }
 
-    // People have first two characters between 1-31
-    function isPerson(kt) {
-        var d = parseInt(kt.substr(0, 2), 10);
-        var m = parseInt(kt.substr(2, 2), 10);
+    // Checks if date is valid. This function could probably be simplified.
+    function isValidDate(kennitala) {
+        var kt = formatKennitala(kennitala)
 
-        return d > 0 && d <= 31 && m > 0 && m <= 12;
+        var d = parseInt(kt.substring(0, 2), 10);
+        var m = parseInt(kt.substring(2, 4), 10);
+        var y = parseInt(kt.substring(4, 6), 10);
+        var c = parseInt(kt.substring(9, 10), 10);
+        var yPre = ""
+
+        // For company kt we remove 40 from day
+        if (d > 40 && d <= 71) {
+            d = d - 40;
+        }
+
+        if (c === 0) {
+            yPre = "20"
+        } else if (c === 9) {            
+            yPre = "19"
+        } else if (c === 8) {
+            yPre = "18"
+        }
+
+        return !isNaN(new Date(yPre+y+'-'+m+'-'+d).getTime())
+    }
+
+    // People have first two characters between 1-31
+    function isPerson(kennitala) {
+        var kt = formatKennitala(kennitala)
+        var d = parseInt(kt.substring(0, 2), 10);
+
+        // 7th and 8th characters for persons should be between incrementing from 20-99
+        var inc = parseInt(kt.substring(6, 8), 10);
+
+        return d > 0 && d <= 31 && inc >= 20 && inc <= 99;
     }
 
     // Companies have first two characters between 41-71
-    function isCompany(kt) {
-        var d = parseInt(kt.substr(0, 2), 10);
-        var m = parseInt(kt.substr(2, 2), 10);
+    function isCompany(kennitala) {
+        var kt = formatKennitala(kennitala)
+        var d = parseInt(kt.substring(0, 2), 10);
 
-        return d > 40 && d <= 71 && m > 0 && m <= 12;
+        return d > 40 && d <= 71;
     }
 
     // Generate kennitala, takes in person/company entity function as well

@@ -32,15 +32,30 @@ describe('kennitala', function () {
 		});
 	});
 
-	describe("#clean", function () {
-		it("should remove invalid characters in kennitölur", function () { // ég bara gat ekki skrifað kennitala-s einu sinni í viðbót >_<
-			kennitala.clean('310896DIRTYSSID2099').should.equal('3108962099');
+	describe("#isTemporary", function () {
+		it("should validate temporary ids", function () {
+			kennitala.isTemporary('8241251291').should.equal(true);
+			kennitala.isTemporary('902412-2041').should.equal(true);
+			kennitala.isValid('8241251291').should.equal(true);
+			kennitala.isValid('902412-2041').should.equal(true);
+			kennitala.isValid(9591601299).should.equal(true);
+			kennitala.isTemporary(9591601299).should.equal(true);
+		})
 
-			kennitala.clean('6010sfa100890').should.equal('6010100890');
+		it("should not validate invalid ids", function () {
+			kennitala.isTemporary('0925120590').should.equal(false);
+		});
+	});
+
+	describe("#sanitize inputs", function () {
+		it("should remove invalid characters in kennitölur", function () { // ég bara gat ekki skrifað kennitala-s einu sinni í viðbót >_<
+			kennitala.sanitize('310896DIRTYSSID2099').should.equal('3108962099');
+
+			kennitala.sanitize('6010sfa100890').should.equal('6010100890');
 		});
 
 		it("should convert kennitölur of type int to string", function () {
-			kennitala.clean(3108962099).should.be.a('string').and.equal('3108962099');
+			kennitala.sanitize(3108962099).should.be.a('string').and.equal('3108962099');
 		});
 	});
 });
