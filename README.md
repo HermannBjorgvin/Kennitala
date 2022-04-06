@@ -24,7 +24,7 @@ A V2 is available and includes support for the new temporary id's.
 V2 includes one breaking change, the "clean" method is now "sanitize" to clarify what it does. It's required to sanitize an id before storing it since this library validates both id's with `-` spacers and without.
 
 To try the V2 beta version you can install it like so:
-`yarn add https://github.com/hermannbjorgvin/kennitala.git#2.0.0`
+`yarn add kennitala@2.0.0-beta.0`
 
 Please raise any issue you find. Also note that the V2 code will be refactored, it does have some code duplication due to the unexpected addition of temporary id's.
 
