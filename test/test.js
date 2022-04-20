@@ -47,6 +47,12 @@ describe('kennitala', function () {
 		});
 	});
 
+	describe("#generateKennitala", function () {
+		it("should generate my id", function () {
+			kennitala.generatePerson(new Date("1996-08-31"), 20).should.equal("3108962099")
+		})
+	});
+
 	describe("#sanitize inputs", function () {
 		it("should remove invalid characters in kennitölur", function () { // ég bara gat ekki skrifað kennitala-s einu sinni í viðbót >_<
 			kennitala.sanitize('310896DIRTYSSID2099').should.equal('3108962099');

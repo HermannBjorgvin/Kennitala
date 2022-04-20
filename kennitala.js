@@ -7,7 +7,8 @@
 
     kennitala.isValid = function(kennitala) {
         // Adds support for temporary KT
-        var kt = formatKennitala(kennitala);
+        var kt = sanitizeInput(kennitala);
+
         if (kt.length === 10 && (kt.substring(0, 1) === '8' || kt.substring(0, 1) === '9')) {
             return true;
         }
@@ -32,29 +33,24 @@
     };
 
     kennitala.isTemporary = function(kennitala) {
-        var kt = formatKennitala(kennitala)
-        if (kt.length === 10 && (kt.substring(0, 1) === '8' || kt.substring(0, 1) === '9')) {
-            return true;
-        } else {
-            return false;
-        }
+        var kt = sanitizeInput(kennitala)
+
+        return (kt.length === 10 && (kt.substring(0, 1) === '8' || kt.substring(0, 1) === '9'));
     }
 
     kennitala.sanitize = function (kennitala) {
-        return formatKennitala(kennitala);
+        return sanitizeInput(kennitala);
     };
 
     kennitala.format = function (kennitala, spacer) {
-        var kt = formatKennitala(kennitala);
-        spacer = typeof spacer !== 'undefined' ? spacer : '-';
+        var kt = sanitizeInput(kennitala);
+        spacer = spacer !== undefined ? spacer : '-';
 
-        kt = kt.substring(0,6) + spacer + kt.substring(6, 10);
-
-        return kt;
+        return kt.substring(0,6) + spacer + kt.substring(6, 10);
     };
 
-    kennitala.generatePerson = function(date) {
-        return generateKennitala(date, personDayDelta);
+    kennitala.generatePerson = function(date, startingIncrement) {
+        return generateKennitala(date, personDayDelta, startingIncrement);
     };
 
     kennitala.generateCompany = function(date) {
@@ -75,7 +71,7 @@
     kennitala.info = function(kt){
         var info = {};
 
-        info.kt = formatKennitala(kt);
+        info.kt = sanitizeInput(kt);
 
         var isPersonType = evaluate(kt, isPerson);
         var isCompanyType = evaluate(kt, isCompany);
@@ -86,7 +82,7 @@
             info.type = isPersonType === true ? "person" : "company";
 
             // Get birthday Date object
-            var kennitala = formatKennitala(kt);
+            var kennitala = sanitizeInput(kt);
             var day = kennitala.substring(0, 2);
             
             // Company day delta
@@ -148,7 +144,7 @@
      */
     var MAGIC_NUMBERS = [3, 2, 7, 6, 5, 4, 3, 2, 0, 0];
     function evaluate(input, entityEvaluationFn) {
-        var kt = formatKennitala(input);
+        var kt = sanitizeInput(input);
         if (kt.length !== 10) {
             return false;
         }
@@ -168,7 +164,7 @@
 
     // Checks if date is valid. This function could probably be simplified.
     function isValidDate(kennitala) {
-        var kt = formatKennitala(kennitala)
+        var kt = sanitizeInput(kennitala)
 
         var d = parseInt(kt.substring(0, 2), 10);
         var m = parseInt(kt.substring(2, 4), 10);
@@ -205,7 +201,7 @@
 
     // People have first two characters between 1-31
     function isPerson(kennitala) {
-        var kt = formatKennitala(kennitala)
+        var kt = sanitizeInput(kennitala)
         var d = parseInt(kt.substring(0, 2), 10);
 
         // 7th and 8th characters for persons should be between incrementing from 20-99
@@ -216,14 +212,14 @@
 
     // Companies have first two characters between 41-71
     function isCompany(kennitala) {
-        var kt = formatKennitala(kennitala)
+        var kt = sanitizeInput(kennitala)
         var d = parseInt(kt.substring(0, 2), 10);
 
         return d > 40 && d <= 71;
     }
 
     // Generate kennitala, takes in person/company entity function as well
-    function generateKennitala(date, entityFn) {
+    function generateKennitala(date, entityFn, startingIncrement) {
         var kt = '';
 
         // Date of month
@@ -293,8 +289,60 @@
             }
         }
 
-        // 7-9th characters
-        kt += randomAndChecksum(kt);
+        /*
+            Recursive function that generates two digits from the optional starting 
+            increment parameter then generates 9th character from 1-8th characters
+
+            Checks if 9th character is 10 in which case the entire proccess is repeated
+        */
+        function incrementingChecksum(kt, incrementFrom) {
+            /* 
+                7th and 8th characters are seemingly random for companies
+                but are incrementing from 20-99 for individuals
+            */
+            var inc = parseInt(incrementFrom, 10)
+            
+            if (inc >= 100 || isNaN(inc)) {
+                return undefined;
+            }
+
+            var digits = inc.toString().split('');
+
+            var digit7 = digits[0];
+            var digit8 = digits[1];
+
+            var tempKt = kt + digit7 + digit8;
+
+            // Ninth number
+            var sum = 0;
+            for (var i = 0; i < 8; i++) {
+                sum += tempKt[i] * MAGIC_NUMBERS[i];
+            }
+
+            sum = 11 - (sum % 11);
+            sum = (sum == 11) ? 0 : sum;
+
+            if (sum == 10) {
+                return incrementingChecksum(kt, inc+1);
+            }
+            else{
+                return digit7 + digit8 + sum;
+            }
+        }
+
+        if (typeof startingIncrement == 'number') {
+            var digits789 = incrementingChecksum(kt, startingIncrement)
+            
+            // If no solution is found return undefined
+            if (digits789 === undefined) {
+                return undefined;
+            }
+
+            kt += digits789
+        } else {
+            // 7-9th characters
+            kt += randomAndChecksum(kt);
+        }
 
         // 10th character is century
         year = date.getFullYear();
@@ -315,7 +363,7 @@
     }
 
     // Ensures datatype is string, then removes all non-digit characters from kennitala
-    function formatKennitala(p_kennitala) {
+    function sanitizeInput(p_kennitala) {
         var kennitala = "" + p_kennitala;
 
         kennitala = kennitala.replace(/(\D)+/g, '');
