@@ -161,7 +161,7 @@
         }, 0);
 
         var remainder = 11 - (sum % 11);
-        var secretNr = parseInt(kt.substring(8, 9), 0);
+        var secretNr = parseInt(kt.substring(8, 9), 10);
 
         return (remainder == 11 && secretNr === 0) || remainder === secretNr;
     }
@@ -176,6 +176,10 @@
         var c = parseInt(kt.substring(9, 10), 10);
         var yPre = ""
 
+        if (isNaN(d) || isNaN(m) || isNaN(y) || isNaN(c)) {
+            return false;
+        }
+
         // For company kt we remove 40 from day
         if (d > 40 && d <= 71) {
             d = d - 40;
@@ -189,7 +193,14 @@
             yPre = "18"
         }
 
-        return !isNaN(new Date(yPre+y+'-'+m+'-'+d).getTime())
+        var date = yPre
+        date += (y < 10) ? "0" + y : "" + y
+        date += "-"
+        date += (m < 10) ? "0" + m : "" + m
+        date += "-"
+        date += (d < 10) ? "0" + d : "" + d
+
+        return !isNaN(new Date(date).getTime())
     }
 
     // People have first two characters between 1-31
