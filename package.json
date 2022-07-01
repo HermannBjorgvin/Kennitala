@@ -1,6 +1,6 @@
 {
   "name": "kennitala",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.3",
   "description": "Icelandic social security number (kennitölur) utilities for servers and clients",
   "main": "dist/kennitala.min.js",
   "types": "./dist/kennitala.min.d.ts",
