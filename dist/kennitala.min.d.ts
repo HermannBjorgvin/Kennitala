@@ -6,7 +6,8 @@ declare module "kennitala" {
     export function sanitize(kennitala: string | number): string;
     export function format(kennitala: string | number, spacer?: string): string;
 
-    export function generatePerson(date: Date, startingIncrement?: number): string;
+    export function generatePerson(date: Date): string
+    export function generatePerson(date: Date, startingIncrement: number): string | undefined;
     export function generateCompany(date: Date): string;
 
     export function info(kennitala: string | number): KennitalaInfo;
