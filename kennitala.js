@@ -204,10 +204,7 @@
         var kt = sanitizeInput(kennitala)
         var d = parseInt(kt.substring(0, 2), 10);
 
-        // 7th and 8th characters for persons should be between incrementing from 20-99
-        var inc = parseInt(kt.substring(6, 8), 10);
-
-        return d > 0 && d <= 31 && inc >= 20 && inc <= 99;
+        return d > 0 && d <= 31;
     }
 
     // Companies have first two characters between 41-71
