@@ -28,7 +28,24 @@ To try the V2 beta version you can install it like so:
 
 Please raise any issue you find. Also note that the V2 code will be refactored, it does have some code duplication due to the unexpected addition of temporary id's.
 
-### Examples
+### Examples using import
+
+``` Javascript
+import { isValid } from 'kennitala'
+    
+// Check if kennitala is valid for either a company or individual
+isValid('3108962099'); // returns True
+isValid('8281249124'); // returns False
+```
+
+``` Javascript
+import { info } from 'kennitala'
+    
+// Get age of person with this kennitala
+info('3108962099').age; // returns age
+```
+
+### Examples using require
 
 ``` Javascript
 const kennitala = require('kennitala');
