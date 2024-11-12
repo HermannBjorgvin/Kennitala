@@ -1,23 +1,52 @@
 {
   "name": "kennitala",
-  "version": "2.0.0-beta.3",
+  "version": "2.0.0-beta.4",
   "description": "Icelandic social security number (kennitölur) utilities for servers and clients",
-  "main": "dist/kennitala.min.js",
-  "types": "./dist/kennitala.min.d.ts",
   "author": "Hermann Björgvin Haraldsson <hermann@hermann.is>",
+  "main": "dist/umd/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "require": "./dist/umd/index.js",
+      "import": "./dist/esm/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/HermannBjorgvin/Kennitala.git"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha",
-    "uglify": "node_modules/.bin/uglifyjs kennitala.js --compress --mangle --source-map dist/kennitala.min.js.map --source-map-url kennitala.min.js.map  --output dist/kennitala.min.js",
-    "dist": "npm test && npm run uglify"
+    "build": "rimraf dist && rollup -c",
+    "lint": "eslint 'src/**/*.{ts,tsx}' 'tests/**/*.{ts,tsx}'",
+    "test": "jest",
+    "prepublishOnly": "npm run build"
   },
+  "keywords": [
+    "kennitala",
+    "iceland",
+    "national-id",
+    "validation",
+    "typescript"
+  ],
   "devDependencies": {
-    "chai": "*",
-    "mocha": "*",
-    "uglify-js": "2.8.29"
+    "@rollup/plugin-commonjs": "^28.0.1",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@types/jest": "^29.5.14",
+    "@typescript-eslint/eslint-plugin": "^8.14.0",
+    "@typescript-eslint/parser": "^8.14.0",
+    "eslint": "^9.14.0",
+    "jest": "^29.7.0",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.25.0",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.6.3"
   }
 }
