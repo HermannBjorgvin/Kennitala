@@ -4,7 +4,7 @@ on:
   push:
     tags:
       - "v*.*.*" # Trigger for stable releases
-      - "beta-v*.*.*" # Trigger for beta releases
+      - "v*.*.*-beta.*" # Trigger for beta releases
   pull_request:
     branches:
       - "**"
