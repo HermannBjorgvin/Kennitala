@@ -73,9 +73,8 @@ isCompanyKennitala('601010-0890'); // returns true
 isCompanyKennitala('3108962099');  // returns false
 
 // Format a kennitala by adding a traditional '-' spacer
-// You can customize the spacer character (defaults to '-')
-formatKennitala('31089620');       // returns '310896-20'
-formatKennitala('3108962099', ''); // returns '3108962099'
+formatKennitala('3108962099');       // returns '310896-2099'
+formatKennitala('3108962099', false); // returns '3108962099'
 ```
 
 ### API Documentation
@@ -135,14 +134,14 @@ Sanitizes the input by removing all non-digit characters.
 
 - **Returns:** The sanitized kennitala string if input is valid, `undefined` otherwise.
 
-#### `formatKennitala(kennitala: string, spacer?: string): string`
+#### `formatKennitala(kennitala: string, spacer?: boolean): string`
 
-Formats the kennitala by adding a spacer between the 6th and 7th digits. The spacer defaults to `'-'`.
+Formats the kennitala by adding a `-` spacer between the 6th and 7th digits.
 
 - **Parameters:**
 
   - `kennitala`: The kennitala string to format.
-  - `spacer` (optional): The spacer character to use.
+  - `spacer` (optional): Includes a `-` spacer character by default.
 
 - **Returns:** The formatted kennitala string.
 
