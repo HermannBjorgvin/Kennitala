@@ -22,6 +22,9 @@
       "require": "./dist/index.cjs"
     }
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rimraf dist && npm run build:esm && npm run build:cjs && npm run build:types:cjs && npm run build:types",
     "build:esm": "esbuild src/index.ts --bundle --platform=node --format=esm --outfile=dist/index.js",
