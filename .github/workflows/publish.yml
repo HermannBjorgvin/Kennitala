@@ -9,7 +9,7 @@ on:
 
 jobs:
   publish-beta:
-    if: startsWith(github.ref, 'refs/tags/beta-')
+    if: github.ref == 'refs/heads/beta'
     runs-on: ubuntu-latest
 
     steps:
