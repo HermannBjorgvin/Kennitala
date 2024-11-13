@@ -3,20 +3,18 @@
   "version": "2.0.0",
   "description": "Icelandic social security number (kennitölur) utilities for servers and clients",
   "author": "Hermann Björgvin Haraldsson <hermann@hermann.is>",
-  "main": "dist/umd/index.js",
-  "module": "dist/esm/index.js",
+  "main": "dist/index.js",
+  "type": "module",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "require": "./dist/umd/index.js",
-      "import": "./dist/esm/index.js",
+      "import": "./dist/index.js",
       "types": "./dist/types/index.d.ts"
     }
   },
-  "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
