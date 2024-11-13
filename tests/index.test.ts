@@ -119,7 +119,7 @@ describe("kennitala", () => {
     });
 
     it("should generate a valid kennitala when no date is provided", () => {
-      const kt = generatePerson(new Date(1954, 1, 2));
+      const kt = generatePerson(new Date(1954, 1, 2), 20);
       expect(isValid(kt!)).toBe(true);
     });
   });
@@ -138,7 +138,7 @@ describe("kennitala", () => {
       expect(ktInfo2?.birthday?.toISOString().split("T")[0]).toBe("1984-04-15");
 
       // const ktInfo3 = info("2902121239");
-      const ktInfo3 = info(generatePerson(new Date(2012, 1, 29)) || "");
+      const ktInfo3 = info(generatePerson(new Date(2012, 1, 29), 20) || "");
       expect(ktInfo3?.valid).toBe(true);
       expect(ktInfo3?.birthday?.toISOString().split("T")[0]).toBe("2012-02-29");
 
