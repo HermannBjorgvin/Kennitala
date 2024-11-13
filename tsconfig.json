@@ -1,18 +1,14 @@
+// tsconfig.json
 {
   "compilerOptions": {
-    "target": "ES6",
+    "target": "ES2015",
     "module": "ESNext",
     "declaration": true,
-    "declarationDir": "./dist/types",
-    "emitDeclarationOnly": false,
-    "outDir": "./dist",
+    "emitDeclarationOnly": true,
     "strict": true,
     "esModuleInterop": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "outDir": "./dist"
   },
-  "include": ["src/**/*"],
-  "exclude": ["tests", "node_modules"]
+  "include": ["src"]
 }
