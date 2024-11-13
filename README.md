@@ -13,20 +13,6 @@ Install with npm:
 npm install kennitala
 ```
 
-## Version 2.0.0-beta.4
-
-A beta version of v2.0.0 is available and includes support for the new temporary IDs.
-
-**Breaking Change:** The `clean` method is now called `sanitize` to clarify its purpose. It's recommended to sanitize an ID before storing it since this library validates IDs both with and without `-` spacers.
-
-To try the beta version:
-
-```bash
-npm install kennitala@2.0.0-beta.4
-```
-
-Please report any issues you encounter. Note that the code may still undergo refactoring.
-
 ### Examples
 
 ```javascript
