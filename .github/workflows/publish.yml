@@ -2,12 +2,10 @@ name: Publish Package
 
 on:
   push:
-    tags:
-      - "v*.*.*" # Trigger for stable releases
-      - "v*.*.*-beta.*" # Trigger for beta releases
-  pull_request:
     branches:
-      - "**"
+      - beta # Trigger on pushes to the beta branch for beta releases
+    tags:
+      - "v*.*.*" # Trigger on stable version tags for production releases
 
 jobs:
   publish-beta:
