@@ -2,9 +2,12 @@ name: Continuous Integration
 
 on:
   push:
-    branches: [master]
+    branches:
+      - master
+      - beta
   pull_request:
-    branches: [master]
+    - master
+    - beta
 
 jobs:
   build-and-test:
