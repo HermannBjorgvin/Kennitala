@@ -1,10 +1,8 @@
-Kennitala
-
----
+# Kennitala
 
 Icelandic national ID (kennitölur) utilities for servers and clients. Now with TypeScript support!
 
-[![Build Status](https://travis-ci.org/HermannBjorgvin/Kennitala.svg?branch=master)](https://travis-ci.org/HermannBjorgvin/Kennitala)
+[![Build Status](https://github.com/HermannBjorgvin/Kennitala/actions/workflows/ci.yml/badge.svg)](https://github.com/HermannBjorgvin/Kennitala/actions)
 [![npm](https://img.shields.io/npm/v/kennitala.svg)](https://www.npmjs.com/package/kennitala)
 [![npm](https://img.shields.io/npm/dm/kennitala.svg)](https://www.npmjs.com/package/kennitala)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/kennitala)
@@ -15,149 +13,210 @@ Install with npm:
 npm install kennitala
 ```
 
-## V2.0.0-beta.4
+## Version 2.0.0-beta.4
 
-A V2 is available and includes support for the new temporary id's.  
-V2 includes one breaking change, the "clean" method is now "sanitize" to clarify what it does. It's required to sanitize an id before storing it since this library validates both id's with `-` spacers and without.
+A beta version of v2.0.0 is available and includes support for the new temporary IDs.
 
-To try the V2 beta version you can install it like so:
-`npm install kennitala@2.0.0-beta.4`
+**Breaking Change:** The `clean` method is now called `sanitize` to clarify its purpose. It's recommended to sanitize an ID before storing it since this library validates IDs both with and without `-` spacers.
 
-Please raise any issue you find. Also note that the V2 code will be refactored, it does have some code duplication due to the unexpected addition of temporary id's.
+To try the beta version:
 
-## BELOW EXAMPLES ARE OUTDATED. LATEST BETA PACKAGE EXPORTS USING ESM
+```bash
+npm install kennitala@2.0.0-beta.4
+```
+
+Please report any issues you encounter. Note that the code may still undergo refactoring.
 
 ### Examples
 
-```Javascript
-const kennitala = require('kennitala');
+```javascript
+import { isValid } from "kennitala";
 
-// Check if kennitala is valid for either a company or individual
-kennitala.isValid('3108962099'); // returns True
-kennitala.isValid('8281249124'); // returns False
+// Check if a kennitala is valid for either a person or a company
+isValid("3108962099"); // returns true
+isValid("8281249124"); // returns false
 ```
 
-### Heads up for storing in Databases
+### Heads Up for Storing in Databases
 
-This library will validate kennitölur with `-` spacers and no spacer, so remember to sanitize your kennitala before storing in a database!
+This library validates kennitölur both with `-` spacers and without, so remember to **sanitize** your kennitala before storing it in a database!
 
-This can be done with the included `.sanitize` function like so:
+You can use the included `sanitize` function:
 
-```Javascript
-const kennitala = require('kennitala');
+```javascript
+import { sanitize } from "kennitala";
 
-kennitala.sanitize('310896-2099');
+const sanitizedKennitala = sanitize("310896-2099");
 // returns '3108962099'
 ```
 
-### More examples
+### More Examples
 
-```Javascript
-const kennitala = require('kennitala');
+```javascript
+import {
+  isValid,
+  isPersonKennitala,
+  isCompanyKennitala,
+  formatKennitala,
+  info,
+  generatePerson,
+  generateCompany,
+} from 'kennitala';
 
-// the .info() method returns an object with useful information
-kennitala.info('3108962099');
-// returns
+// Get detailed information about a kennitala
+const kennitalaInfo = info('3108962099');
+// kennitalaInfo contains:
 {
-	kt: '3108962099',
-	valid: true,
-	type: 'person',
-	birthday: 1996-08-31T00:00:00.000Z,
-	birthdayReadable: 'Sat Aug 31 1996',
-	age: 27
+  kt: '3108962099',
+  valid: true,
+  type: 'person',
+  birthday: new Date('1996-08-31T00:00:00.000Z'),
+  birthdayReadable: 'Sat Aug 31 1996',
+  age: 27,
 }
 
-// Check if kennitala is valid for a person (returns false for companies)
-kennitala.isPerson('3108962099');            // returns True
-kennitala.isPerson('601010-0890');           // returns False because of invalid date
-kennitala.isPerson(3108962099);              // returns False because of numeric type
-kennitala.isPerson('31^_^08!!96LOL20T_T99'); // returns False because... well, just no
+// Check if a kennitala is valid for a person (returns false for companies)
+isPersonKennitala('3108962099');            // returns true
+isPersonKennitala('601010-0890');           // returns false (invalid date)
+isPersonKennitala(3108962099);              // returns false (invalid input type)
+isPersonKennitala('31^_^08!!96LOL20T_T99'); // returns false (invalid format)
 
-// Checks if kennitala is valid for a company (returns false for persons)
-kennitala.isCompany('6010100890');  // True
-kennitala.isCompany('601010-0890'); // True
-kennitala.isCompany('3108962099');  // False
+// Check if a kennitala is valid for a company (returns false for persons)
+isCompanyKennitala('6010100890');  // returns true
+isCompanyKennitala('601010-0890'); // returns true
+isCompanyKennitala('3108962099');  // returns false
 
-// the .format() method formats a kennitala and adds a traditional - spacer
-// takes an optional parameter for the spacer between the 6th and 7th digit
-// defaults to '-' but can be customized with an optional parameter
-
-// Great for using with getters/setters in forms where you want to show the traditional format to users
-
-kennitala.format('31089620');
-// returns '310896-20'
-
-kennitala.format('3108962099', '');
-// returns '3108962099'
-
+// Format a kennitala by adding a traditional '-' spacer
+// You can customize the spacer character (defaults to '-')
+formatKennitala('31089620');       // returns '310896-20'
+formatKennitala('3108962099', ''); // returns '3108962099'
 ```
 
-### API documentation
+### API Documentation
 
-    kennitala.isValid(string, ?options: { allowTestDataset: false });
-        returns boolean
+Below is the API based on the type definitions from the refactored TypeScript library.
 
-        Checks if kennitala checksum is correct for either a person or company
-        If passed a string with non-digit characters included it removes them before validating
+#### `isValid(kennitala: string, options?: { allowTestKennitala?: boolean }): boolean`
 
-        Allows passing optional options object to enable the test dataset
-        https://www.skra.is/um-okkur/frettir/frett/2020/10/13/Ny-utgafa-af-gervigognum-thjodskrar/
+Checks if the kennitala checksum is correct for either a person or company. Non-digit characters are removed before validation.
 
-    kennitala.info(string);
-    	returns object with relevant information about this kennitala
-        {
-            kt: char(10),
-            valid: boolean,
-            type: enum("company", "person")
-            age: int,
-            birthday: Date object,
-            birthdayReadable: Human readable Date String
-        }
+- **Parameters:**
 
-    kennitala.isPerson(string, ?options: { allowTestDataset: false });
-        returns boolean
+  - `kennitala`: The kennitala string to validate.
+  - `options` (optional): An object with the following property:
+    - `allowTestKennitala` (default: `false`): Set to `true` to allow validation of test kennitala numbers.
 
-        Checks if kennitala checksum is correct and if day of birth is between 1-31
-        If passed a string with non-digit characters included it removes them before validating
+- **Returns:** `true` if the kennitala is valid, `false` otherwise.
 
-        Allows passing optional options object to enable the test dataset
-        https://www.skra.is/um-okkur/frettir/frett/2020/10/13/Ny-utgafa-af-gervigognum-thjodskrar/
+#### `isPersonKennitala(kennitala: string, options?: { allowTestKennitala?: boolean }): boolean`
 
-    kennitala.isCompany(string);
-        returns boolean
+Checks if the kennitala is valid for a person. The day of birth must be between 1-31. Non-digit characters are removed before validation.
 
-        Checks if kennitala checksum is correct and if day of birth is between 41-71
-        If passed a string with non-digit characters included it removes them before validating
+- **Parameters:**
 
-    kennitala.format(string, ?[string]);
-        returns string
+  - `kennitala`: The kennitala string to validate.
+  - `options` (optional): Same as in `isValid`.
 
-        Ensures datatype is string, then matches and removes all non-digit characters
-        and adds a traditional '-' spacer between 6th and 7th digit. This can be customized
-        with an optional 2nd parameter.
+- **Returns:** `true` if the kennitala is valid for a person, `false` otherwise.
 
-    kennitala.sanitize(string);
-        returns string or undefined
+#### `isCompanyKennitala(kennitala: string): boolean`
 
-        Ensures datatype is string, then matches and removes all non-digit characters.
+Checks if the kennitala is valid for a company. The day of birth must be between 41-71. Non-digit characters are removed before validation.
 
-        Does not ensure a valid kennitala, only used for sanitizing input.
+- **Parameters:**
 
-    kennitala.generatePerson([date]);
-        returns string
+  - `kennitala`: The kennitala string to validate.
 
-        Takes Date object as a parameter and returns a new kennitala for a person
+- **Returns:** `true` if the kennitala is valid for a company, `false` otherwise.
 
-    kennitala.generateCompany([date]);
-        returns string
+#### `isTemporaryKennitala(kennitala: string): boolean`
 
-        Takes Date object as a parameter and returns a new kennitala for a company
+Checks if the kennitala is a valid temporary ID.
+
+- **Parameters:**
+
+  - `kennitala`: The kennitala string to validate.
+
+- **Returns:** `true` if the kennitala is a valid temporary ID, `false` otherwise.
+
+#### `sanitize(kennitala: string): string | undefined`
+
+Sanitizes the input by removing all non-digit characters.
+
+- **Parameters:**
+
+  - `kennitala`: The kennitala string to sanitize.
+
+- **Returns:** The sanitized kennitala string if input is valid, `undefined` otherwise.
+
+#### `formatKennitala(kennitala: string, spacer?: string): string`
+
+Formats the kennitala by adding a spacer between the 6th and 7th digits. The spacer defaults to `'-'`.
+
+- **Parameters:**
+
+  - `kennitala`: The kennitala string to format.
+  - `spacer` (optional): The spacer character to use.
+
+- **Returns:** The formatted kennitala string.
+
+#### `info(kennitala: string): KennitalaInfo | undefined`
+
+Returns an object containing information about the kennitala.
+
+- **Parameters:**
+
+  - `kennitala`: The kennitala string to analyze.
+
+- **Returns:** An object of type `KennitalaInfo` if valid, `undefined` otherwise.
+
+**`KennitalaInfo` Type Definition:**
+
+```typescript
+interface KennitalaInfo {
+  kt: string; // The sanitized kennitala
+  valid: boolean; // Whether the kennitala is valid
+  type: "person" | "company" | "temporary" | "unknown"; // Type of kennitala
+  age?: number; // Age calculated from the birthday (if applicable)
+  birthday?: Date; // Date object representing the birthday (if applicable)
+  birthdayReadable?: string; // Human-readable date string (if applicable)
+}
+```
+
+#### `generatePerson(date?: Date): string | undefined`
+
+Generates a valid kennitala for a person. Optionally accepts a `Date` object to specify the birth date.
+
+- **Parameters:**
+
+  - `date` (optional): The birth date to use for generating the kennitala.
+
+- **Returns:** A valid kennitala string if generation is successful, `undefined` otherwise.
+
+#### `generateCompany(date?: Date): string | undefined`
+
+Generates a valid kennitala for a company. Optionally accepts a `Date` object to specify the registration date.
+
+- **Parameters:**
+
+  - `date` (optional): The date to use for generating the company kennitala.
+
+- **Returns:** A valid kennitala string if generation is successful, `undefined` otherwise.
 
 ### Testing
 
-Uses [Mocha](https://mochajs.org/) for testing. In order to execute the tests, you need to run `npm install -g mocha` first. Once you've done that
-you can open up a command line and point it to the root directory of the project. From there you should be able to type either `npm test` or simply `mocha` to run the tests.
+The library uses [Jest](https://jestjs.io/) for testing. To run the tests, use:
+
+```bash
+npm test
+```
 
 ### Building
 
-To build the project, you can type `npm run dist`, which minifies the script and generates a source map, and places both in the `dist/` folder.
+To build the project, run:
+
+```bash
+npm run build
+```
+
+This will compile the TypeScript code and place the output in the `dist/` folder.
