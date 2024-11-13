@@ -6,8 +6,9 @@ on:
       - master
       - beta
   pull_request:
-    - master
-    - beta
+    branches:
+      - master
+      - beta
 
 jobs:
   build-and-test:
