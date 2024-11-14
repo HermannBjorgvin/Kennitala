@@ -22,6 +22,9 @@ const evaluate = (
 };
 
 const isValidDate = (kt: string): boolean => {
+  // Edge case for valid company ID numbers that were created in error in 1969
+  if (["700269", "690269"].includes(kt.substring(0, 6))) return true;
+
   let day = parseInt(kt.substring(0, 2), 10);
   const month = parseInt(kt.substring(2, 4), 10);
   const yearSuffix = kt.substring(4, 6);
@@ -68,6 +71,9 @@ const isCompany = (kt: string): boolean => {
   return day > 40 && day <= 71;
 };
 
+const isTemporary = (kt: string): boolean =>
+  kt.startsWith("8") || kt.startsWith("9");
+
 const getDefaultOptions = (options?: ValidationOptions): ValidationOptions => {
   return {
     allowTestDataset: !!options && options.allowTestDataset === true,
@@ -75,10 +81,11 @@ const getDefaultOptions = (options?: ValidationOptions): ValidationOptions => {
 };
 
 export {
-  isValidDate,
-  isPerson,
-  isCompany,
-  isTestPerson,
   evaluate,
   getDefaultOptions,
+  isCompany,
+  isPerson,
+  isTemporary,
+  isTestPerson,
+  isValidDate,
 };

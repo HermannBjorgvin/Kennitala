@@ -11,9 +11,6 @@ export const sanitizeInput = (kennitala: string): string | undefined => {
     : undefined;
 };
 
-export const isTemporary = (kt: string): boolean =>
-  kt.startsWith("8") || kt.startsWith("9");
-
 export const getCentury = (centuryCode: number): string | null => {
   switch (centuryCode) {
     case 0:
