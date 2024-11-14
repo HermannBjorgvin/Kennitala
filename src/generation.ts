@@ -101,8 +101,19 @@ const generateCompany = (date: Date): string | undefined => {
   return generateKennitala(date, companyDayDelta);
 };
 
+const generateTemporary = (): string => {
+  const digits = "0123456789";
+  let kt = "89"[Math.floor(Math.random())];
+
+  for (let i = 0; i < 9; i++) {
+    kt += digits[Math.floor(Math.random() * digits.length)];
+  }
+
+  return kt;
+};
+
 const personDayDelta = (day: number): number => day;
 
 const companyDayDelta = (day: number): number => day + 40;
 
-export { generatePerson, generateCompany };
+export { generatePerson, generateCompany, generateTemporary };

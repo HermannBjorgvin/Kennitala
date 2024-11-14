@@ -1,15 +1,20 @@
 // src/index.ts
 
-import { sanitizeInput, isTemporary, getCentury } from "./utils";
+import { sanitizeInput, getCentury } from "./utils";
 import {
-  isValidDate,
-  isPerson,
-  isCompany,
-  isTestPerson,
   evaluate,
   getDefaultOptions,
+  isCompany,
+  isPerson,
+  isTemporary,
+  isTestPerson,
+  isValidDate,
 } from "./validation";
-import { generatePerson, generateCompany } from "./generation";
+import {
+  generatePerson,
+  generateCompany,
+  generateTemporary,
+} from "./generation";
 import { KennitalaInfo, ValidationOptions } from "./types";
 
 export const isValid = (
@@ -81,7 +86,7 @@ export const info = (kennitala: string): KennitalaInfo | undefined => {
     return {
       kt: "",
       valid: false,
-      type: "unknown",
+      type: "invalid",
       birthday: new Date(NaN),
       birthdayReadable: "",
       age: NaN,
@@ -90,12 +95,24 @@ export const info = (kennitala: string): KennitalaInfo | undefined => {
 
   const isPersonType = evaluate(kt, isPerson);
   const isCompanyType = evaluate(kt, isCompany);
+  const isTemporaryType = isTemporary(kt);
+
+  if (isTemporaryType) {
+    return {
+      kt,
+      valid: true,
+      type: "temporary",
+      birthday: new Date(NaN),
+      birthdayReadable: "",
+      age: NaN,
+    };
+  }
 
   if (!isPersonType && !isCompanyType) {
     return {
       kt,
       valid: false,
-      type: "unknown",
+      type: "invalid",
       birthday: new Date(NaN),
       birthdayReadable: "",
       age: NaN,
@@ -142,4 +159,4 @@ export const info = (kennitala: string): KennitalaInfo | undefined => {
   };
 };
 
-export { generatePerson, generateCompany };
+export { generatePerson, generateCompany, generateTemporary };

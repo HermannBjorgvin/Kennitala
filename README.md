@@ -161,7 +161,7 @@ Returns an object containing information about the kennitala.
 interface KennitalaInfo {
   kt: string; // The sanitized kennitala
   valid: boolean; // Whether the kennitala is valid
-  type: "person" | "company" | "temporary" | "unknown"; // Type of kennitala
+  type: "person" | "company" | "temporary" | "invalid"; // Type of kennitala
   age?: number; // Age calculated from the birthday (if applicable)
   birthday?: Date; // Date object representing the birthday (if applicable)
   birthdayReadable?: string; // Human-readable date string (if applicable)

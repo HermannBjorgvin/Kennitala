@@ -3,7 +3,7 @@
 export interface KennitalaInfo {
   kt: string;
   valid: boolean;
-  type: "person" | "company" | "unknown";
+  type: "person" | "company" | "temporary" | "invalid";
   birthday: Date;
   birthdayReadable: string;
   age: number;
