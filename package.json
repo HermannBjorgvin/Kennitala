@@ -14,11 +14,9 @@
   "types": "./dist/index.d.ts",
   "exports": {
     "import": {
-      "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
     "require": {
-      "types": "./dist/index.d.cts",
       "require": "./dist/index.cjs"
     }
   },
@@ -26,12 +24,10 @@
     "dist"
   ],
   "scripts": {
-    "build": "rimraf dist && npm run build:esm && npm run build:cjs && npm run build:types:cjs && npm run build:types",
+    "build": "rimraf dist && npm run build:esm && npm run build:cjs && npm run build:types",
     "build:esm": "esbuild src/index.ts --bundle --platform=node --format=esm --outfile=dist/index.js",
     "build:cjs": "esbuild src/index.ts --bundle --platform=node --format=cjs --outfile=dist/index.cjs",
-    "build:types": "tsc --declaration --emitDeclarationOnly --outFile dist/index.d.ts",
-    "build:types:cjs": "tsc --declaration --emitDeclarationOnly --outFile dist/index.d.cts --module CommonJS",
-    "postbuild:types:cjs": "mv dist/index.d.ts dist/index.d.cts",
+    "build:types": "tsc --emitDeclarationOnly --outDir dist",
     "lint": "eslint 'src/**/*.{ts,tsx}' 'tests/**/*.{ts,tsx}'",
     "test": "jest"
   },
