@@ -74,10 +74,10 @@ export const sanitize = (kennitala: string): string | undefined =>
 export const formatKennitala = (
   kennitala: string,
   spacer: boolean = true
-): string | undefined => {
-  const kt = sanitizeInput(kennitala);
-  if (!kt) return undefined;
-  return `${kt.slice(0, 6)}${spacer ? "-" : ""}${kt.slice(6)}`;
+): string => {
+  const kt = kennitala.replace(/\D+/g, "");
+
+  return `${kt.slice(0, 6)}${spacer && kt.length > 5 ? "-" : ""}${kt.slice(6)}`;
 };
 
 export const info = (
