@@ -4,10 +4,10 @@ import { sanitizeInput, getCentury } from "./utils";
 import {
   evaluate,
   getDefaultOptions,
-  isCompany,
-  isPerson,
-  isTemporary,
-  isTestPerson,
+  isCompany as isCompanyType,
+  isPerson as isPersonType,
+  isTemporary as isTemporaryType,
+  isTestPerson as isTestPersonType,
   isValidDate,
 } from "./validation";
 import {
@@ -24,12 +24,12 @@ export const isValid = (
   const kt = sanitizeInput(kennitala);
   if (!kt) return false;
 
-  if (isTemporary(kt)) return true;
+  if (isTemporaryType(kt)) return true;
 
   const opts = getDefaultOptions(options);
-  const person = evaluate(kt, isPerson);
-  const testPersonResult = evaluate(kt, isTestPerson);
-  const company = evaluate(kt, isCompany);
+  const person = evaluate(kt, isPersonType);
+  const testPersonResult = evaluate(kt, isTestPersonType);
+  const company = evaluate(kt, isCompanyType);
   const dateValid = isValidDate(kt);
 
   return (
@@ -38,7 +38,7 @@ export const isValid = (
   );
 };
 
-export const isPersonKennitala = (
+export const isPerson = (
   kennitala: string,
   options?: ValidationOptions
 ): boolean => {
@@ -47,25 +47,25 @@ export const isPersonKennitala = (
 
   const dateValid = isValidDate(kt);
 
-  if (isTestPerson(kt) && options?.allowTestDataset) {
-    return dateValid && evaluate(kt, isTestPerson);
+  if (isTestPersonType(kt) && options?.allowTestDataset) {
+    return dateValid && evaluate(kt, isTestPersonType);
   } else {
-    return dateValid && evaluate(kt, isPerson);
+    return dateValid && evaluate(kt, isPersonType);
   }
 };
 
-export const isCompanyKennitala = (kennitala: string): boolean => {
+export const isCompany = (kennitala: string): boolean => {
   const kt = sanitizeInput(kennitala);
   if (!kt) return false;
 
   const dateValid = isValidDate(kt);
 
-  return dateValid && evaluate(kt, isCompany);
+  return dateValid && evaluate(kt, isCompanyType);
 };
 
-export const isTemporaryKennitala = (kennitala: string): boolean => {
+export const isTemporary = (kennitala: string): boolean => {
   const kt = sanitizeInput(kennitala);
-  return kt ? isTemporary(kt) : false;
+  return kt ? isTemporaryType(kt) : false;
 };
 
 export const sanitize = (kennitala: string): string | undefined =>
@@ -80,7 +80,10 @@ export const formatKennitala = (
   return `${kt.slice(0, 6)}${spacer ? "-" : ""}${kt.slice(6)}`;
 };
 
-export const info = (kennitala: string): KennitalaInfo | undefined => {
+export const info = (
+  kennitala: string,
+  options?: ValidationOptions
+): KennitalaInfo => {
   const kt = sanitizeInput(kennitala);
   if (!kt) {
     return {
@@ -93,11 +96,7 @@ export const info = (kennitala: string): KennitalaInfo | undefined => {
     };
   }
 
-  const isPersonType = evaluate(kt, isPerson);
-  const isCompanyType = evaluate(kt, isCompany);
-  const isTemporaryType = isTemporary(kt);
-
-  if (isTemporaryType) {
+  if (isTemporary(kt)) {
     return {
       kt,
       valid: true,
@@ -108,54 +107,52 @@ export const info = (kennitala: string): KennitalaInfo | undefined => {
     };
   }
 
-  if (!isPersonType && !isCompanyType) {
+  if (isPerson(kt, options) || isCompany(kt)) {
+    let day = parseInt(kt.substring(0, 2), 10);
+    if (day > 40) {
+      day -= 40;
+    }
+    const month = parseInt(kt.substring(2, 4), 10);
+    const yearSuffix = kt.substring(4, 6);
+    const centuryCode = parseInt(kt.substring(9), 10);
+    const yearPrefix = getCentury(centuryCode);
+
+    const year = parseInt(`${yearPrefix}${yearSuffix}`, 10);
+    const birthday = new Date(Date.UTC(year, month - 1, day));
+
+    const today = new Date();
+    const todayUTC = new Date(
+      Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate())
+    );
+    let age = todayUTC.getUTCFullYear() - birthday.getUTCFullYear();
+    const m = todayUTC.getUTCMonth() - birthday.getUTCMonth();
+    const d = todayUTC.getUTCDate() - birthday.getUTCDate();
+
+    if (m < 0 || (m === 0 && d < 0)) {
+      age--;
+    }
+
+    if (age < 0) {
+      age += 100;
+    }
+
     return {
       kt,
-      valid: false,
-      type: "invalid",
-      birthday: new Date(NaN),
-      birthdayReadable: "",
-      age: NaN,
+      valid: true,
+      type: isPersonType(kt) ? "person" : "company",
+      birthday,
+      birthdayReadable: birthday.toUTCString(),
+      age,
     };
-  }
-
-  let day = parseInt(kt.substring(0, 2), 10);
-  if (day > 40) {
-    day -= 40;
-  }
-  const month = parseInt(kt.substring(2, 4), 10);
-  const yearSuffix = kt.substring(4, 6);
-  const centuryCode = parseInt(kt.substring(9), 10);
-  const yearPrefix = getCentury(centuryCode);
-
-  if (!yearPrefix) return undefined;
-
-  const year = parseInt(`${yearPrefix}${yearSuffix}`, 10);
-  const birthday = new Date(Date.UTC(year, month - 1, day));
-
-  const today = new Date();
-  const todayUTC = new Date(
-    Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate())
-  );
-  let age = todayUTC.getUTCFullYear() - birthday.getUTCFullYear();
-  const m = todayUTC.getUTCMonth() - birthday.getUTCMonth();
-  const d = todayUTC.getUTCDate() - birthday.getUTCDate();
-
-  if (m < 0 || (m === 0 && d < 0)) {
-    age--;
-  }
-
-  if (age < 0) {
-    age += 100;
   }
 
   return {
     kt,
-    valid: true,
-    type: isPersonType ? "person" : "company",
-    birthday,
-    birthdayReadable: birthday.toUTCString(),
-    age,
+    valid: false,
+    type: "invalid",
+    birthday: new Date(NaN),
+    birthdayReadable: "",
+    age: NaN,
   };
 };
 

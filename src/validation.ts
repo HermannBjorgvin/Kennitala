@@ -22,6 +22,9 @@ const evaluate = (
 };
 
 const isValidDate = (kt: string): boolean => {
+  // Ensure every KT is from 19th, 20th or 21st century
+  if (!["0", "9", "8"].includes(kt.substring(9, 10))) return false;
+
   // Edge case for valid company ID numbers that were created in error in 1969
   if (["700269", "690269"].includes(kt.substring(0, 6))) return true;
 

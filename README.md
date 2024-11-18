@@ -41,8 +41,8 @@ const sanitizedKennitala = sanitize("310896-2099");
 ```javascript
 import {
   isValid,
-  isPersonKennitala,
-  isCompanyKennitala,
+  isPerson,
+  isCompany,
   formatKennitala,
   info,
   generatePerson,
@@ -62,15 +62,15 @@ const kennitalaInfo = info('3108962099');
 }
 
 // Check if a kennitala is valid for a person (returns false for companies)
-isPersonKennitala('3108962099');            // returns true
-isPersonKennitala('601010-0890');           // returns false (invalid date)
-isPersonKennitala(3108962099);              // returns false (invalid input type)
-isPersonKennitala('31^_^08!!96LOL20T_T99'); // returns false (invalid format)
+isPerson('3108962099');            // returns true
+isPerson('601010-0890');           // returns false (invalid date)
+isPerson(3108962099);              // returns false (invalid input type)
+isPerson('31^_^08!!96LOL20T_T99'); // returns false (invalid format)
 
 // Check if a kennitala is valid for a company (returns false for persons)
-isCompanyKennitala('6010100890');  // returns true
-isCompanyKennitala('601010-0890'); // returns true
-isCompanyKennitala('3108962099');  // returns false
+isCompany('6010100890');  // returns true
+isCompany('601010-0890'); // returns true
+isCompany('3108962099');  // returns false
 
 // Format a kennitala by adding a traditional '-' spacer
 formatKennitala('3108962099');       // returns '310896-2099'
@@ -93,7 +93,7 @@ Checks if the kennitala checksum is correct for either a person or company. Non-
 
 - **Returns:** `true` if the kennitala is valid, `false` otherwise.
 
-#### `isPersonKennitala(kennitala: string, options?: { allowTestKennitala?: boolean }): boolean`
+#### `isPerson(kennitala: string, options?: { allowTestKennitala?: boolean }): boolean`
 
 Checks if the kennitala is valid for a person. The day of birth must be between 1-31. Non-digit characters are removed before validation.
 
@@ -104,7 +104,7 @@ Checks if the kennitala is valid for a person. The day of birth must be between 
 
 - **Returns:** `true` if the kennitala is valid for a person, `false` otherwise.
 
-#### `isCompanyKennitala(kennitala: string): boolean`
+#### `isCompany(kennitala: string): boolean`
 
 Checks if the kennitala is valid for a company. The day of birth must be between 41-71. Non-digit characters are removed before validation.
 
@@ -114,7 +114,7 @@ Checks if the kennitala is valid for a company. The day of birth must be between
 
 - **Returns:** `true` if the kennitala is valid for a company, `false` otherwise.
 
-#### `isTemporaryKennitala(kennitala: string): boolean`
+#### `isTemporary(kennitala: string): boolean`
 
 Checks if the kennitala is a valid temporary ID.
 

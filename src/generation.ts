@@ -92,7 +92,7 @@ const generateKennitala = (
 
 const generatePerson = (
   date: Date,
-  startingIncrement?: number
+  startingIncrement = 20
 ): string | undefined => {
   return generateKennitala(date, personDayDelta, startingIncrement);
 };
