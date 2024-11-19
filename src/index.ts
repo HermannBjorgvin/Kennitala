@@ -11,6 +11,7 @@ import {
   isValidDate,
 } from "./validation";
 import {
+  generateKennitalaIterator,
   generatePerson,
   generateCompany,
   generateTemporary,
@@ -153,4 +154,9 @@ export const info = (
   };
 };
 
-export { generatePerson, generateCompany, generateTemporary };
+export {
+  generatePerson,
+  generateCompany,
+  generateTemporary,
+  generateKennitalaIterator,
+};

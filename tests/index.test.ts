@@ -10,6 +10,7 @@ import {
   generatePerson,
   generateTemporary,
   info,
+  generateKennitalaIterator,
 } from "../src/index";
 
 describe("kennitala", () => {
@@ -85,6 +86,38 @@ describe("kennitala", () => {
       const ktInfo = info(kt!);
       expect(ktInfo?.valid).toBe(true);
       expect(ktInfo?.age).toBe(0);
+    });
+  });
+
+  describe("generateKennitalaIterator", () => {
+    it("should generate a known kennitala", () => {
+      const iterator = generateKennitalaIterator(
+        new Date("1996-08-31"),
+        (day) => day,
+        20
+      );
+      const generatedKt = iterator.next().value;
+      expect(generatedKt).toBe("3108962099");
+    });
+
+    it("should iterate through all valid kennitalas", () => {
+      const iterator = generateKennitalaIterator(
+        new Date("1996-08-31"),
+        (day) => day,
+        20
+      );
+
+      const generatedKts: string[] = [];
+      while (true) {
+        const kt = iterator.next().value;
+        if (!kt) {
+          break;
+        }
+        generatedKts.push(kt);
+      }
+
+      expect(generatedKts.length).toBe(73);
+      expect(generatedKts).toMatchSnapshot();
     });
   });
 

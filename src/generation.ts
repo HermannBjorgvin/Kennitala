@@ -2,82 +2,49 @@
 
 import { calculateChecksumRemainder, padZero } from "./utils";
 
-const generateKennitala = (
+export function* generateKennitalaIterator(
   date: Date,
   entityFn: (day: number) => number,
-  startingIncrement?: number
-): string | undefined => {
+  startingIncrement: number = 0
+) {
   let day = date.getUTCDate();
   day = entityFn(day);
 
   const month = date.getUTCMonth() + 1;
   const year = date.getUTCFullYear();
   const yearSuffix = year.toString().slice(-2);
+  const centuryDigit = year.toString()[1];
 
-  let kt = `${padZero(day)}${padZero(month)}${yearSuffix}`;
+  const ddmmyy = `${padZero(day)}${padZero(month)}${yearSuffix}`;
 
-  const randomAndChecksum = (kt: string): string => {
-    const digit7 = Math.floor(Math.random() * 10);
-    const digit8 = Math.floor(Math.random() * 10);
+  for (let i = startingIncrement; i < 100; i++) {
+    const digits = padZero(i);
+    const remainder = calculateChecksumRemainder(ddmmyy + digits);
 
-    const tempKt = kt + digit7.toString() + digit8.toString();
-    const remainder = calculateChecksumRemainder(tempKt);
-
-    return remainder === null
-      ? randomAndChecksum(kt)
-      : `${digit7}${digit8}${remainder}`;
-  };
-
-  const incrementingChecksum = (
-    kt: string,
-    incrementFrom: number
-  ): string | undefined => {
-    let inc = incrementFrom;
-
-    while (inc < 100) {
-      const digits = padZero(inc).split("");
-      const digit7 = digits[0];
-      const digit8 = digits[1];
-
-      const tempKt = kt + digit7 + digit8;
-      const remainder = calculateChecksumRemainder(tempKt);
-
-      if (remainder === null) {
-        inc++;
-        continue;
-      } else {
-        return `${digit7}${digit8}${remainder}`;
-      }
+    // Skip if check digit is invalid
+    if (remainder == null) {
+      continue;
     }
 
-    return undefined;
-  };
-
-  let digits789: string | undefined;
-  if (startingIncrement) {
-    digits789 = incrementingChecksum(kt, startingIncrement);
-    if (!digits789) return undefined;
-  } else {
-    digits789 = randomAndChecksum(kt);
+    yield `${ddmmyy}${digits}${remainder}${centuryDigit}`;
   }
 
-  kt += digits789;
-
-  const centuryDigit = year.toString()[1];
-  kt += centuryDigit;
-
-  return kt;
-};
+  return undefined;
+}
 
 const generatePerson = (
   date: Date,
   startingIncrement = 20
 ): string | undefined => {
-  return generateKennitala(date, personDayDelta, startingIncrement);
+  return generateKennitalaIterator(
+    date,
+    personDayDelta,
+    startingIncrement
+  ).next().value;
 };
 
 const generateCompany = (date: Date): string | undefined => {
-  return generateKennitala(date, companyDayDelta);
+  return generateKennitalaIterator(date, companyDayDelta).next().value;
 };
 
 const generateTemporary = (): string => {
