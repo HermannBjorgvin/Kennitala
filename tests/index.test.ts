@@ -6,7 +6,7 @@ import {
   isValid,
   isTemporary,
   sanitize,
-  formatKennitala,
+  format,
   generatePerson,
   generateTemporary,
   info,
@@ -47,8 +47,8 @@ describe("kennitala", () => {
 
   describe("formatKennitala", () => {
     it("should add dash to kennitala", () => {
-      expect(formatKennitala("1504842359")).toBe("150484-2359");
-      expect(formatKennitala("0101842359")).toBe("010184-2359");
+      expect(format("1504842359")).toBe("150484-2359");
+      expect(format("0101842359")).toBe("010184-2359");
     });
   });
 
@@ -203,7 +203,7 @@ describe("kennitala", () => {
 
   describe("formatKennitala", () => {
     it("should format kennitala correctly", () => {
-      expect(formatKennitala("3108962099")).toBe("310896-2099");
+      expect(format("3108962099")).toBe("310896-2099");
     });
   });
 

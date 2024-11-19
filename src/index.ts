@@ -71,10 +71,7 @@ export const isTemporary = (kennitala: string): boolean => {
 export const sanitize = (kennitala: string): string | undefined =>
   sanitizeInput(kennitala);
 
-export const formatKennitala = (
-  kennitala: string,
-  spacer: boolean = true
-): string => {
+export const format = (kennitala: string, spacer: boolean = true): string => {
   const kt = kennitala.replace(/\D+/g, "");
 
   return `${kt.slice(0, 6)}${spacer && kt.length > 5 ? "-" : ""}${kt.slice(6)}`;
