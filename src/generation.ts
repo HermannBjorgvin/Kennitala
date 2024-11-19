@@ -1,7 +1,6 @@
 // src/generation.ts
 
-import { MAGIC_NUMBERS, padZero } from "./utils";
-import { isPerson } from "./validation";
+import { calculateChecksumRemainder, padZero } from "./utils";
 
 const generateKennitala = (
   date: Date,
@@ -18,28 +17,15 @@ const generateKennitala = (
   let kt = `${padZero(day)}${padZero(month)}${yearSuffix}`;
 
   const randomAndChecksum = (kt: string): string => {
-    let digit7 = Math.floor(Math.random() * 10);
+    const digit7 = Math.floor(Math.random() * 10);
     const digit8 = Math.floor(Math.random() * 10);
 
-    if (isPerson(kt)) {
-      digit7 = Math.floor(Math.random() * 8 + 2);
-    }
-
     const tempKt = kt + digit7.toString() + digit8.toString();
+    const remainder = calculateChecksumRemainder(tempKt);
 
-    let sum = 0;
-    for (let i = 0; i < 8; i++) {
-      sum += parseInt(tempKt[i], 10) * MAGIC_NUMBERS[i];
-    }
-
-    let remainder = 11 - (sum % 11);
-    remainder = remainder === 11 ? 0 : remainder;
-
-    if (remainder === 10) {
-      return randomAndChecksum(kt);
-    } else {
-      return `${digit7}${digit8}${remainder}`;
-    }
+    return remainder === null
+      ? randomAndChecksum(kt)
+      : `${digit7}${digit8}${remainder}`;
   };
 
   const incrementingChecksum = (
@@ -54,16 +40,9 @@ const generateKennitala = (
       const digit8 = digits[1];
 
       const tempKt = kt + digit7 + digit8;
+      const remainder = calculateChecksumRemainder(tempKt);
 
-      let sum = 0;
-      for (let i = 0; i < 8; i++) {
-        sum += parseInt(tempKt[i], 10) * MAGIC_NUMBERS[i];
-      }
-
-      let remainder = 11 - (sum % 11);
-      remainder = remainder === 11 ? 0 : remainder;
-
-      if (remainder === 10) {
+      if (remainder === null) {
         inc++;
         continue;
       } else {

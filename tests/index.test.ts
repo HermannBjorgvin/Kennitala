@@ -103,8 +103,8 @@ describe("kennitala", () => {
       ];
       testCases.forEach(({ date, kt }) => {
         const generatedKt = generatePerson(date);
-        expect(isValid(generatedKt!)).toBe(true);
         expect(generatedKt).toBe(kt);
+        expect(isValid(generatedKt!)).toBe(true);
       });
     });
 
