@@ -136,7 +136,7 @@ Sanitizes the input by removing all non-digit characters.
 
 #### `formatKennitala(kennitala: string, spacer?: boolean): string`
 
-Formats the kennitala by adding a `-` spacer between the 6th and 7th digits.
+Formats the kennitala by adding a `-` spacer between the 6th and 7th digits. Does not validate the input.
 
 - **Parameters:**
 
