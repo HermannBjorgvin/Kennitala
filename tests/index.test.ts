@@ -204,6 +204,8 @@ describe("kennitala", () => {
   describe("formatKennitala", () => {
     it("should format kennitala correctly", () => {
       expect(format("3108962099")).toBe("310896-2099");
+      expect(format("3108962")).toBe("310896-2");
+      expect(format("310896")).toBe("310896");
     });
   });
 
