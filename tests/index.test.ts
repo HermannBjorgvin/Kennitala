@@ -1,29 +1,27 @@
 // tests/index.test.ts
 
 import {
-  isPersonKennitala,
-  isCompanyKennitala,
+  isPerson,
+  isCompany,
   isValid,
-  isTemporaryKennitala,
+  isTemporary,
   sanitize,
-  formatKennitala,
+  format,
   generatePerson,
   generateTemporary,
   info,
 } from "../src/index";
 
 describe("kennitala", () => {
-  describe("isCompanyKennitala", () => {
+  describe("isCompany", () => {
     it("should be able to check if kennitala is of a company", () => {
-      expect(isCompanyKennitala("5811131290")).toBe(true);
-      expect(isCompanyKennitala("150484-2359drop table('secretTable')")).toBe(
-        false
-      );
-      expect(isCompanyKennitala("1234567890")).toBe(false);
+      expect(isCompany("5811131290")).toBe(true);
+      expect(isCompany("150484-2359drop table('secretTable')")).toBe(false);
+      expect(isCompany("1234567890")).toBe(false);
     });
 
     it("should not validate kerfiskennitölur as company kennitala", () => {
-      expect(isCompanyKennitala(generateTemporary())).toBe(false);
+      expect(isCompany(generateTemporary())).toBe(false);
     });
   });
 
@@ -49,8 +47,8 @@ describe("kennitala", () => {
 
   describe("formatKennitala", () => {
     it("should add dash to kennitala", () => {
-      expect(formatKennitala("1504842359")).toBe("150484-2359");
-      expect(formatKennitala("0101842359")).toBe("010184-2359");
+      expect(format("1504842359")).toBe("150484-2359");
+      expect(format("0101842359")).toBe("010184-2359");
     });
   });
 
@@ -83,7 +81,7 @@ describe("kennitala", () => {
     });
 
     it("should handle age calculation for children younger than 1 year", () => {
-      const kt = generatePerson(new Date(), 20);
+      const kt = generatePerson(new Date());
       const ktInfo = info(kt!);
       expect(ktInfo?.valid).toBe(true);
       expect(ktInfo?.age).toBe(0);
@@ -92,7 +90,7 @@ describe("kennitala", () => {
 
   describe("generatePerson", () => {
     it("should generate a known kennitala", () => {
-      const generatedKt = generatePerson(new Date("1996-08-31"), 20);
+      const generatedKt = generatePerson(new Date("1996-08-31"));
       expect(generatedKt).toBe("3108962099");
     });
 
@@ -104,14 +102,14 @@ describe("kennitala", () => {
         { date: new Date(1972, 11, 31), kt: "3112722099" },
       ];
       testCases.forEach(({ date, kt }) => {
-        const generatedKt = generatePerson(date, 20);
-        expect(isValid(generatedKt!)).toBe(true);
+        const generatedKt = generatePerson(date);
         expect(generatedKt).toBe(kt);
+        expect(isValid(generatedKt!)).toBe(true);
       });
     });
 
     it("should generate a valid kennitala when no date is provided", () => {
-      const kt = generatePerson(new Date(1954, 1, 2), 20);
+      const kt = generatePerson(new Date(1954, 1, 2));
       expect(isValid(kt!)).toBe(true);
     });
   });
@@ -125,7 +123,7 @@ describe("kennitala", () => {
       expect(ktInfo2?.valid).toBe(true);
       expect(ktInfo2?.birthday?.toISOString().split("T")[0]).toBe("1984-04-15");
 
-      const ktInfo3 = info(generatePerson(new Date(2012, 1, 29), 20) || "");
+      const ktInfo3 = info(generatePerson(new Date(2012, 1, 29)) || "");
       expect(ktInfo3?.valid).toBe(true);
       expect(ktInfo3?.birthday?.toISOString().split("T")[0]).toBe("2012-02-29");
 
@@ -150,44 +148,44 @@ describe("kennitala", () => {
     });
   });
 
-  describe("isPersonKennitala", () => {
+  describe("isPerson", () => {
     it("should validate known valid personal kennitala of various formats", () => {
-      expect(isPersonKennitala("3108962099")).toBe(true);
-      expect(isPersonKennitala("310896-2099")).toBe(true);
-      expect(isPersonKennitala("31089daa62099")).toBe(false);
+      expect(isPerson("3108962099")).toBe(true);
+      expect(isPerson("310896-2099")).toBe(true);
+      expect(isPerson("31089daa62099")).toBe(false);
     });
 
     it("should not validate company kennitala or invalid ones", () => {
-      expect(isPersonKennitala("6010100890")).toBe(false);
-      expect(isPersonKennitala("9908962099")).toBe(false);
+      expect(isPerson("6010100890")).toBe(false);
+      expect(isPerson("9908962099")).toBe(false);
     });
 
     it("should not validate kennitala with invalid month", () => {
-      expect(isPersonKennitala("1337991337")).toBe(false);
+      expect(isPerson("1337991337")).toBe(false);
     });
   });
 
-  describe("isCompanyKennitala", () => {
+  describe("isCompany", () => {
     it("should validate known valid company ids", () => {
-      expect(isCompanyKennitala("6010100890")).toBe(true);
-      expect(isCompanyKennitala("601010-0890")).toBe(true);
+      expect(isCompany("6010100890")).toBe(true);
+      expect(isCompany("601010-0890")).toBe(true);
     });
 
     it("should not validate personal kennitala", () => {
-      expect(isCompanyKennitala("3108962099")).toBe(false);
+      expect(isCompany("3108962099")).toBe(false);
     });
   });
 
-  describe("isTemporaryKennitala", () => {
+  describe("isTemporary", () => {
     it("should validate temporary ids", () => {
-      expect(isTemporaryKennitala("8241251291")).toBe(true);
-      expect(isTemporaryKennitala("902412-2041")).toBe(true);
+      expect(isTemporary("8241251291")).toBe(true);
+      expect(isTemporary("902412-2041")).toBe(true);
       expect(isValid("8241251291")).toBe(true);
       expect(isValid("902412-2041")).toBe(true);
     });
 
     it("should not validate invalid ids", () => {
-      expect(isTemporaryKennitala("0925120590")).toBe(false);
+      expect(isTemporary("0925120590")).toBe(false);
     });
   });
 
@@ -205,18 +203,16 @@ describe("kennitala", () => {
 
   describe("formatKennitala", () => {
     it("should format kennitala correctly", () => {
-      expect(formatKennitala("3108962099")).toBe("310896-2099");
+      expect(format("3108962099")).toBe("310896-2099");
+      expect(format("3108962")).toBe("310896-2");
+      expect(format("310896")).toBe("310896");
     });
   });
 
   describe("Test Dataset People", () => {
     it("should validate test people when allowed", () => {
-      expect(isPersonKennitala("1908991529", { allowTestDataset: false })).toBe(
-        false
-      );
-      expect(isPersonKennitala("1909021450", { allowTestDataset: true })).toBe(
-        true
-      );
+      expect(isPerson("1908991529", { allowTestDataset: false })).toBe(false);
+      expect(isPerson("1909021450", { allowTestDataset: true })).toBe(true);
       expect(isValid("1905641429", { allowTestDataset: true })).toBe(true);
     });
   });
@@ -241,7 +237,7 @@ describe("kennitala", () => {
 
   describe("Leap Year Edge Cases", () => {
     it("should validate kennitala on February 29th of a leap year", () => {
-      const kt = generatePerson(new Date(Date.UTC(2000, 1, 29)), 20);
+      const kt = generatePerson(new Date(Date.UTC(2000, 1, 29)));
       expect(kt).toBeDefined();
       expect(isValid(kt!)).toBe(true);
       const ktInfo = info(kt!);
@@ -256,7 +252,7 @@ describe("kennitala", () => {
       const birthDate = new Date(
         Date.UTC(birthYear, today.getUTCMonth(), today.getUTCDate() - 1)
       );
-      const kt = generatePerson(birthDate, 20);
+      const kt = generatePerson(birthDate);
       const ktInfo = info(kt!);
       expect(Math.floor(ktInfo!.age!)).toBe(30);
     });
@@ -267,7 +263,7 @@ describe("kennitala", () => {
       const birthDate = new Date(
         Date.UTC(birthYear, today.getUTCMonth(), today.getUTCDate())
       );
-      const kt = generatePerson(birthDate, 20);
+      const kt = generatePerson(birthDate);
       const ktInfo = info(kt!);
       expect(Math.floor(ktInfo!.age!)).toBe(30);
     });
@@ -278,7 +274,7 @@ describe("kennitala", () => {
       const birthDate = new Date(
         Date.UTC(birthYear, today.getUTCMonth(), today.getUTCDate() + 1)
       );
-      const kt = generatePerson(birthDate, 20);
+      const kt = generatePerson(birthDate);
       const ktInfo = info(kt!);
       expect(Math.floor(ktInfo!.age!)).toBe(29);
     });

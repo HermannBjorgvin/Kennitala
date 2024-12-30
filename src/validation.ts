@@ -1,6 +1,6 @@
 // src/validation.ts
 
-import { MAGIC_NUMBERS, getCentury } from "./utils";
+import { calculateChecksumRemainder, getCentury } from "./utils";
 import { ValidationOptions } from "./types";
 
 const evaluate = (
@@ -11,17 +11,16 @@ const evaluate = (
     return false;
   }
 
-  const sum = kt
-    .split("")
-    .reduce((prev, curr, i) => prev + parseInt(curr, 10) * MAGIC_NUMBERS[i], 0);
-
-  const remainder = 11 - (sum % 11);
+  const remainder = calculateChecksumRemainder(kt);
   const checkDigit = parseInt(kt.charAt(8), 10);
 
-  return (remainder === 11 && checkDigit === 0) || remainder === checkDigit;
+  return remainder !== null && remainder === checkDigit;
 };
 
 const isValidDate = (kt: string): boolean => {
+  // Ensure every KT is from 19th, 20th or 21st century
+  if (!["0", "9", "8"].includes(kt.substring(9, 10))) return false;
+
   // Edge case for valid company ID numbers that were created in error in 1969
   if (["700269", "690269"].includes(kt.substring(0, 6))) return true;
 

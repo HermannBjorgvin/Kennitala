@@ -1,6 +1,6 @@
 // src/utils.ts
 
-export const MAGIC_NUMBERS = [3, 2, 7, 6, 5, 4, 3, 2, 0, 0];
+const MAGIC_NUMBERS = [3, 2, 7, 6, 5, 4, 3, 2, 0, 0];
 
 export const padZero = (num: number): string =>
   num < 10 ? `0${num}` : `${num}`;
@@ -24,16 +24,12 @@ export const getCentury = (centuryCode: number): string | null => {
   }
 };
 
-export const calculateCheckDigit = (kt: string): number | null => {
-  const sum = kt
-    .slice(0, 8)
-    .split("")
-    .reduce(
-      (acc, curr, idx) => acc + parseInt(curr, 10) * MAGIC_NUMBERS[idx],
-      0
-    );
+export const calculateChecksumRemainder = (kt: string): number | null => {
+  let sum = 0;
+  for (let i = 0; i < 8; i++) {
+    sum += parseInt(kt[i], 10) * MAGIC_NUMBERS[i];
+  }
+
   const remainder = 11 - (sum % 11);
-  if (remainder === 11) return 0;
-  if (remainder === 10) return null;
-  return remainder;
+  return remainder === 10 ? null : remainder === 11 ? 0 : remainder;
 };
