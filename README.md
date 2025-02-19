@@ -124,7 +124,7 @@ Checks if the kennitala is a valid temporary ID.
 
 - **Returns:** `true` if the kennitala is a valid temporary ID, `false` otherwise.
 
-#### `sanitize(kennitala: string): string | undefined`
+#### `sanitize(kennitala: string): string`
 
 Sanitizes the input by removing all non-digit characters.
 
@@ -132,7 +132,7 @@ Sanitizes the input by removing all non-digit characters.
 
   - `kennitala`: The kennitala string to sanitize.
 
-- **Returns:** The sanitized kennitala string if input is valid, `undefined` otherwise.
+- **Returns:** The sanitized kennitala string if input is valid, otherwise returns the `kennitala` string unchanged.
 
 #### `formatKennitala(kennitala: string, spacer?: boolean): string`
 
