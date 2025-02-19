@@ -154,3 +154,16 @@ export const info = (
 };
 
 export { generatePerson, generateCompany, generateTemporary };
+
+export default {
+  isValid,
+  isPerson,
+  isCompany,
+  isTemporary,
+  sanitize,
+  format,
+  info,
+  generatePerson,
+  generateCompany,
+  generateTemporary,
+}

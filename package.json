@@ -18,6 +18,7 @@
       "require": "./dist/index.cjs"
     }
   },
+  "sideEffects": false,
   "files": [
     "dist"
   ],
