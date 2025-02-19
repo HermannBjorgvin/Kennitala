@@ -168,7 +168,7 @@ interface KennitalaInfo {
 }
 ```
 
-#### `generatePerson(date: Date): string | undefined`
+#### `generatePerson(date: Date): string`
 
 Generates a valid kennitala for a person based on a `Date` object to specify the birth date.
 
@@ -176,9 +176,9 @@ Generates a valid kennitala for a person based on a `Date` object to specify the
 
   - `date`: The birth date to use for generating the kennitala.
 
-- **Returns:** A valid kennitala string if generation is successful, `undefined` otherwise.
+- **Returns:** A valid kennitala string.
 
-#### `generateCompany(date: Date): string | undefined`
+#### `generateCompany(date: Date): string`
 
 Generates a valid kennitala for a company based on a `Date` object to specify the registration date.
 
@@ -186,7 +186,7 @@ Generates a valid kennitala for a company based on a `Date` object to specify th
 
   - `date`: The date to use for generating the company kennitala.
 
-- **Returns:** A valid kennitala string if generation is successful, `undefined` otherwise.
+- **Returns:** A valid kennitala string.
 
 ### Testing
 
