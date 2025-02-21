@@ -154,6 +154,7 @@ export const info = (
 };
 
 export { generatePerson, generateCompany, generateTemporary };
+export type { KennitalaInfo, ValidationOptions };
 
 export default {
   isValid,
