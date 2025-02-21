@@ -124,7 +124,7 @@ Checks if the kennitala is a valid temporary ID.
 
 - **Returns:** `true` if the kennitala is a valid temporary ID, `false` otherwise.
 
-#### `sanitize(kennitala: string): string | undefined`
+#### `sanitize(kennitala: string): string`
 
 Sanitizes the input by removing all non-digit characters.
 
@@ -132,7 +132,7 @@ Sanitizes the input by removing all non-digit characters.
 
   - `kennitala`: The kennitala string to sanitize.
 
-- **Returns:** The sanitized kennitala string if input is valid, `undefined` otherwise.
+- **Returns:** The sanitized kennitala string if input is valid, otherwise returns the `kennitala` string unchanged.
 
 #### `formatKennitala(kennitala: string, spacer?: boolean): string`
 
@@ -168,7 +168,7 @@ interface KennitalaInfo {
 }
 ```
 
-#### `generatePerson(date: Date): string | undefined`
+#### `generatePerson(date: Date): string`
 
 Generates a valid kennitala for a person based on a `Date` object to specify the birth date.
 
@@ -176,9 +176,9 @@ Generates a valid kennitala for a person based on a `Date` object to specify the
 
   - `date`: The birth date to use for generating the kennitala.
 
-- **Returns:** A valid kennitala string if generation is successful, `undefined` otherwise.
+- **Returns:** A valid kennitala string.
 
-#### `generateCompany(date: Date): string | undefined`
+#### `generateCompany(date: Date): string`
 
 Generates a valid kennitala for a company based on a `Date` object to specify the registration date.
 
@@ -186,7 +186,7 @@ Generates a valid kennitala for a company based on a `Date` object to specify th
 
   - `date`: The date to use for generating the company kennitala.
 
-- **Returns:** A valid kennitala string if generation is successful, `undefined` otherwise.
+- **Returns:** A valid kennitala string.
 
 ### Testing
 
