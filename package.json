@@ -1,6 +1,6 @@
 {
   "name": "kennitala",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "description": "Icelandic social security number (kennitölur) utilities for servers and clients",
   "author": "Hermann Björgvin Haraldsson <hermann@hermann.is>",
   "license": "MIT",
