@@ -22,7 +22,7 @@ const isValidDate = (kt: string): boolean => {
   if (!["0", "9", "8"].includes(kt.substring(9, 10))) return false;
 
   // Edge case for valid company ID numbers that were created in error in 1969
-  if (["700269", "690269"].includes(kt.substring(0, 6))) return true;
+  if (["710269", "700269", "690269"].includes(kt.substring(0, 6))) return true;
 
   let day = parseInt(kt.substring(0, 2), 10);
   const month = parseInt(kt.substring(2, 4), 10);
