@@ -69,7 +69,7 @@ export const isTemporary = (kennitala: string): boolean => {
 };
 
 export const sanitize = (kennitala: string): string =>
-  sanitizeInput(kennitala) ?? kennitala;
+  sanitizeInput(kennitala) ?? '';
 
 export const format = (kennitala: string, spacer: boolean = true): string => {
   const kt = kennitala.replace(/\D+/g, "");
