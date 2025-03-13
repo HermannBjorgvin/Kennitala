@@ -56,8 +56,8 @@ const generateKennitala = (
   let digits789: string | undefined;
   if (startingIncrement) {
     digits789 = incrementingChecksum(kt, startingIncrement);
-  }
-  if (!digits789) {
+    if (!digits789) return '';
+  } else {
     digits789 = randomAndChecksum(kt);
   }
 
@@ -71,8 +71,9 @@ const generateKennitala = (
 
 const generatePerson = (
   date: Date,
+  startingIncrement = 20,
 ): string => {
-  return generateKennitala(date, personDayDelta, 20);
+  return generateKennitala(date, personDayDelta, startingIncrement);
 };
 
 const generateCompany = (date: Date): string => {

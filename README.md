@@ -168,13 +168,14 @@ interface KennitalaInfo {
 }
 ```
 
-#### `generatePerson(date: Date): string`
+#### `generatePerson(date: Date, startingIncrement = 20): string`
 
 Generates a valid kennitala for a person based on a `Date` object to specify the birth date.
 
 - **Parameters:**
 
   - `date`: The birth date to use for generating the kennitala.
+  - `startingIncrement`: The starting increment for digits 7 and 8 (default: 20).
 
 - **Returns:** A valid kennitala string.
 
