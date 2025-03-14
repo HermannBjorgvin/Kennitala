@@ -1,7 +1,6 @@
 // src/validation.ts
 
 import { calculateChecksumRemainder, getCentury } from "./utils";
-import { ValidationOptions } from "./types";
 
 const evaluate = (
   kt: string,
@@ -52,16 +51,8 @@ const isValidDate = (kt: string): boolean => {
 
 const isPerson = (kt: string): boolean => {
   const day = parseInt(kt.substring(0, 2), 10);
-  const digits78 = parseInt(kt.substring(6, 8), 10);
 
-  return day > 0 && day <= 31 && digits78 >= 20;
-};
-
-const isTestPerson = (kt: string): boolean => {
-  const day = parseInt(kt.substring(0, 2), 10);
-  const digits78 = kt.substring(6, 8);
-
-  return day > 0 && day <= 31 && (digits78 === "14" || digits78 === "15");
+  return day > 0 && day <= 31;
 };
 
 const isCompany = (kt: string): boolean => {
@@ -73,18 +64,4 @@ const isCompany = (kt: string): boolean => {
 const isTemporary = (kt: string): boolean =>
   kt.startsWith("8") || kt.startsWith("9");
 
-const getDefaultOptions = (options?: ValidationOptions): ValidationOptions => {
-  return {
-    allowTestDataset: !!options && options.allowTestDataset === true,
-  };
-};
-
-export {
-  evaluate,
-  getDefaultOptions,
-  isCompany,
-  isPerson,
-  isTemporary,
-  isTestPerson,
-  isValidDate,
-};
+export { evaluate, isCompany, isPerson, isTemporary, isValidDate };

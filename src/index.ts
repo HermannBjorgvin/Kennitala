@@ -3,11 +3,9 @@
 import { sanitizeInput, getCentury } from "./utils";
 import {
   evaluate,
-  getDefaultOptions,
   isCompany as isCompanyType,
   isPerson as isPersonType,
   isTemporary as isTemporaryType,
-  isTestPerson as isTestPersonType,
   isValidDate,
 } from "./validation";
 import {
@@ -15,43 +13,28 @@ import {
   generateCompany,
   generateTemporary,
 } from "./generation";
-import { KennitalaInfo, ValidationOptions } from "./types";
+import { KennitalaInfo } from "./types";
 
-export const isValid = (
-  kennitala: string,
-  options?: ValidationOptions
-): boolean => {
+export const isValid = (kennitala: string): boolean => {
   const kt = sanitizeInput(kennitala);
   if (!kt) return false;
 
   if (isTemporaryType(kt)) return true;
 
-  const opts = getDefaultOptions(options);
   const person = evaluate(kt, isPersonType);
-  const testPersonResult = evaluate(kt, isTestPersonType);
   const company = evaluate(kt, isCompanyType);
   const dateValid = isValidDate(kt);
 
-  return (
-    dateValid &&
-    (person || company || (testPersonResult && opts.allowTestDataset === true))
-  );
+  return dateValid && (person || company);
 };
 
-export const isPerson = (
-  kennitala: string,
-  options?: ValidationOptions
-): boolean => {
+export const isPerson = (kennitala: string): boolean => {
   const kt = sanitizeInput(kennitala);
   if (!kt) return false;
 
   const dateValid = isValidDate(kt);
 
-  if (isTestPersonType(kt) && options?.allowTestDataset) {
-    return dateValid && evaluate(kt, isTestPersonType);
-  } else {
-    return dateValid && evaluate(kt, isPersonType);
-  }
+  return dateValid && evaluate(kt, isPersonType);
 };
 
 export const isCompany = (kennitala: string): boolean => {
@@ -77,10 +60,7 @@ export const format = (kennitala: string, spacer: boolean = true): string => {
   return `${kt.slice(0, 6)}${spacer && kt.length > 6 ? "-" : ""}${kt.slice(6)}`;
 };
 
-export const info = (
-  kennitala: string,
-  options?: ValidationOptions
-): KennitalaInfo => {
+export const info = (kennitala: string): KennitalaInfo => {
   const kt = sanitizeInput(kennitala);
   if (!kt) {
     return {
@@ -104,7 +84,7 @@ export const info = (
     };
   }
 
-  if (isPerson(kt, options) || isCompany(kt)) {
+  if (isPerson(kt) || isCompany(kt)) {
     let day = parseInt(kt.substring(0, 2), 10);
     if (day > 40) {
       day -= 40;

@@ -8,7 +8,3 @@ export interface KennitalaInfo {
   birthdayReadable: string;
   age: number;
 }
-
-export interface ValidationOptions {
-  allowTestDataset?: boolean;
-}
