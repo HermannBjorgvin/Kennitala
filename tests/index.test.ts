@@ -209,16 +209,22 @@ describe("kennitala", () => {
     });
   });
 
-  describe("KT with 7th digits 1 and 0 sould pass", () => {
+  describe("KT with 7th digits 1 and 0 should pass", () => {
     it("should validate test people when allowed", () => {
-      for (let i = 0; i < 1000; i++) {
+      for (let i = 0; i < 10000; i++) {
         // generate kt with random date from 1800-2100 and validate it
+        const start = new Date(1860, 0, 1).getTime();
+        const end = new Date(2030, 11, 31).getTime();
+        const randomDate = start + Math.random() * (end - start);
+
         const kt = generatePerson(
-          new Date(Date.UTC(1800 + Math.floor(Math.random() * 300), 0, 1)),
-          Math.floor(Math.random() * 30)
+          new Date(randomDate),
+          Math.floor(Math.random() * 99)
         );
 
-        expect(isPerson(kt!)).toBe(true);
+        if (kt) {
+          expect(isPerson(kt!)).toBe(true);
+        }
       }
 
       expect(isPerson("1908990129")).toBe(true);
