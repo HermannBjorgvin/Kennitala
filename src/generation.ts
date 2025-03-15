@@ -6,7 +6,7 @@ const generateKennitala = (
   date: Date,
   entityFn: (day: number) => number,
   startingIncrement?: number
-): string | undefined => {
+): string => {
   let day = date.getUTCDate();
   day = entityFn(day);
 
@@ -56,7 +56,7 @@ const generateKennitala = (
   let digits789: string | undefined;
   if (startingIncrement) {
     digits789 = incrementingChecksum(kt, startingIncrement);
-    if (!digits789) return undefined;
+    if (!digits789) return '';
   } else {
     digits789 = randomAndChecksum(kt);
   }
@@ -71,12 +71,12 @@ const generateKennitala = (
 
 const generatePerson = (
   date: Date,
-  startingIncrement = 20
-): string | undefined => {
+  startingIncrement = 20,
+): string => {
   return generateKennitala(date, personDayDelta, startingIncrement);
 };
 
-const generateCompany = (date: Date): string | undefined => {
+const generateCompany = (date: Date): string => {
   return generateKennitala(date, companyDayDelta);
 };
 

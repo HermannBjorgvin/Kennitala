@@ -41,7 +41,7 @@ describe("kennitala", () => {
     it("should clean kennitala by removing non-digit characters", () => {
       expect(sanitize("010159-1234")).toBe("0101591234");
       expect(sanitize("1234567890")).toBe("1234567890");
-      expect(sanitize(1234567890 as unknown as string)).toBeUndefined();
+      expect(sanitize(1234567890 as unknown as string)).toBe('');
     });
   });
 
@@ -190,14 +190,14 @@ describe("kennitala", () => {
   });
 
   describe("sanitize", () => {
-    it("should return undefined for invalid formats", () => {
-      expect(sanitize("310896DIRTYSSID2099")).toBeUndefined();
-      expect(sanitize("6010sfa100890")).toBeUndefined();
+    it("should return empty string for invalid formats", () => {
+      expect(sanitize("310896DIRTYSSID2099")).toBe('');
+      expect(sanitize("6010sfa100890")).toBe('');
     });
 
-    it("should return undefined for non-string types", () => {
+    it("should return empty string for non-string types", () => {
       // @ts-expect-error Testing invalid input
-      expect(sanitize(3108962099)).toBeUndefined();
+      expect(sanitize(3108962099)).toBe('');
     });
   });
 
@@ -287,12 +287,12 @@ describe("kennitala", () => {
     });
 
     it("should reject invalid formats", () => {
-      expect(sanitize("310896209")).toBeUndefined(); // Too short
-      expect(sanitize("310896-20999")).toBeUndefined(); // Too long
-      expect(sanitize("31-0896-2099")).toBeUndefined(); // Incorrect hyphen placement
-      expect(sanitize("31a8962099")).toBeUndefined(); // Contains letters
-      expect(sanitize("3108962099 ")).toBeUndefined(); // Trailing space
-      expect(sanitize(" 3108962099")).toBeUndefined(); // Leading space
+      expect(sanitize("310896209")).toBe(''); // Too short
+      expect(sanitize("310896-20999")).toBe(''); // Too long
+      expect(sanitize("31-0896-2099")).toBe(''); // Incorrect hyphen placement
+      expect(sanitize("31a8962099")).toBe(''); // Contains letters
+      expect(sanitize("3108962099 ")).toBe(''); // Trailing space
+      expect(sanitize(" 3108962099")).toBe(''); // Leading space
     });
   });
 });
