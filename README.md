@@ -81,26 +81,23 @@ formatKennitala('3108962099', false); // returns '3108962099'
 
 Below is the API based on the type definitions from the refactored TypeScript library.
 
-#### `isValid(kennitala: string, options?: { allowTestKennitala?: boolean }): boolean`
+#### `isValid(kennitala: string): boolean`
 
 Checks if the kennitala checksum is correct for either a person or company. Non-digit characters are removed before validation.
 
 - **Parameters:**
 
   - `kennitala`: The kennitala string to validate.
-  - `options` (optional): An object with the following property:
-    - `allowTestKennitala` (default: `false`): Set to `true` to allow validation of test kennitala numbers.
 
 - **Returns:** `true` if the kennitala is valid, `false` otherwise.
 
-#### `isPerson(kennitala: string, options?: { allowTestKennitala?: boolean }): boolean`
+#### `isPerson(kennitala: string): boolean`
 
 Checks if the kennitala is valid for a person. The day of birth must be between 1-31. Non-digit characters are removed before validation.
 
 - **Parameters:**
 
   - `kennitala`: The kennitala string to validate.
-  - `options` (optional): Same as in `isValid`.
 
 - **Returns:** `true` if the kennitala is valid for a person, `false` otherwise.
 
