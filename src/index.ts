@@ -3,11 +3,9 @@
 import { sanitizeInput, getCentury } from "./utils";
 import {
   evaluate,
-  getDefaultOptions,
   isCompany as isCompanyType,
   isPerson as isPersonType,
   isTemporary as isTemporaryType,
-  isTestPerson as isTestPersonType,
   isValidDate,
 } from "./validation";
 import {
@@ -19,6 +17,7 @@ import { KennitalaInfo, ValidationOptions } from "./types";
 
 export const isValid = (
   kennitala: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   options?: ValidationOptions
 ): boolean => {
   const kt = sanitizeInput(kennitala);
@@ -26,20 +25,19 @@ export const isValid = (
 
   if (isTemporaryType(kt)) return true;
 
-  const opts = getDefaultOptions(options);
   const person = evaluate(kt, isPersonType);
-  const testPersonResult = evaluate(kt, isTestPersonType);
   const company = evaluate(kt, isCompanyType);
   const dateValid = isValidDate(kt);
 
   return (
     dateValid &&
-    (person || company || (testPersonResult && opts.allowTestDataset === true))
+    (person || company)
   );
 };
 
 export const isPerson = (
   kennitala: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   options?: ValidationOptions
 ): boolean => {
   const kt = sanitizeInput(kennitala);
@@ -47,11 +45,7 @@ export const isPerson = (
 
   const dateValid = isValidDate(kt);
 
-  if (isTestPersonType(kt) && options?.allowTestDataset) {
-    return dateValid && evaluate(kt, isTestPersonType);
-  } else {
-    return dateValid && evaluate(kt, isPersonType);
-  }
+  return dateValid && evaluate(kt, isPersonType);
 };
 
 export const isCompany = (kennitala: string): boolean => {
