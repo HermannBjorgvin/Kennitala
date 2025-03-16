@@ -209,11 +209,28 @@ describe("kennitala", () => {
     });
   });
 
-  describe("Test Dataset People", () => {
+  describe("KT with 7th digits 1 and 0 should pass", () => {
     it("should validate test people when allowed", () => {
-      expect(isPerson("1908991529", { allowTestDataset: false })).toBe(false);
-      expect(isPerson("1909021450", { allowTestDataset: true })).toBe(true);
-      expect(isValid("1905641429", { allowTestDataset: true })).toBe(true);
+      for (let i = 0; i < 10000; i++) {
+        // generate kt with random date from 1800-2100 and validate it
+        const start = new Date(1860, 0, 1).getTime();
+        const end = new Date(2030, 11, 31).getTime();
+        const randomDate = start + Math.random() * (end - start);
+
+        const kt = generatePerson(
+          new Date(randomDate),
+          Math.floor(Math.random() * 99)
+        );
+
+        if (kt) {
+          expect(isPerson(kt!)).toBe(true);
+        }
+      }
+
+      expect(isPerson("1908990129")).toBe(true);
+      expect(isPerson("1908991529")).toBe(true);
+      expect(isPerson("1909021450")).toBe(true);
+      expect(isValid("1905641429")).toBe(true);
     });
   });
 
