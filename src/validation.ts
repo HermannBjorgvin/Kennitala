@@ -1,6 +1,6 @@
 // src/validation.ts
 
-import { calculateChecksumRemainder, getCentury } from "./utils";
+import { getCentury } from "./utils";
 
 const evaluate = (
   kt: string,
@@ -8,12 +8,9 @@ const evaluate = (
 ): boolean => {
   if (kt.length !== 10 || (entityEvaluationFn && !entityEvaluationFn(kt))) {
     return false;
+  } else {
+    return true;
   }
-
-  const remainder = calculateChecksumRemainder(kt);
-  const checkDigit = parseInt(kt.charAt(8), 10);
-
-  return remainder !== null && remainder === checkDigit;
 };
 
 const isValidDate = (kt: string): boolean => {
