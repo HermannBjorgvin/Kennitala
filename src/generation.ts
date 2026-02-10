@@ -5,7 +5,7 @@ import { padZero } from "./utils";
 const generateKennitala = (
   date: Date,
   entityFn: (day: number) => number,
-  startingIncrement?: number
+  startingIncrement?: number,
 ): string => {
   let day = date.getUTCDate();
   day = entityFn(day);
@@ -16,30 +16,15 @@ const generateKennitala = (
 
   let kt = `${padZero(day)}${padZero(month)}${yearSuffix}`;
 
-  const randomDigits789 = (): string => {
-    const digit7 = Math.floor(Math.random() * 10);
-    const digit8 = Math.floor(Math.random() * 10);
-    const digit9 = Math.floor(Math.random() * 10);
-
-    return `${digit7}${digit8}${digit9}`;
-  };
-
-  const incrementingDigits789 = (incrementFrom: number): string => {
-    return incrementFrom.toString().padStart(3, "0");
-  };
-
-  let digits789: string | undefined;
   if (startingIncrement) {
-    digits789 = incrementingDigits789(startingIncrement);
-    if (!digits789) return "";
+    kt += startingIncrement.toString().padStart(3, "0");
   } else {
-    digits789 = randomDigits789();
+    kt += Math.floor(Math.random() * 1000)
+      .toString()
+      .padStart(3, "0");
   }
 
-  kt += digits789;
-
-  const centuryDigit = year.toString()[1];
-  kt += centuryDigit;
+  kt += year.toString()[1];
 
   return kt;
 };
