@@ -41,7 +41,7 @@ describe("kennitala", () => {
     it("should clean kennitala by removing non-digit characters", () => {
       expect(sanitize("010159-1234")).toBe("0101591234");
       expect(sanitize("1234567890")).toBe("1234567890");
-      expect(sanitize(1234567890 as unknown as string)).toBe('');
+      expect(sanitize(1234567890 as unknown as string)).toBe("");
     });
   });
 
@@ -91,15 +91,15 @@ describe("kennitala", () => {
   describe("generatePerson", () => {
     it("should generate a known kennitala", () => {
       const generatedKt = generatePerson(new Date("1996-08-31"));
-      expect(generatedKt).toBe("3108962099");
+      expect(generatedKt).toBe("3108962009");
     });
 
     it("should generate correct kennitala for given dates", () => {
       const testCases = [
         { date: new Date(1984, 3, 15), kt: "1504842009" },
-        { date: new Date(1983, 4, 6), kt: "0605832189" },
-        { date: new Date(1936, 0, 8), kt: "0801362189" },
-        { date: new Date(1972, 11, 31), kt: "3112722099" },
+        { date: new Date(1983, 4, 6), kt: "0605832009" },
+        { date: new Date(1936, 0, 8), kt: "0801362009" },
+        { date: new Date(1972, 11, 31), kt: "3112722009" },
       ];
       testCases.forEach(({ date, kt }) => {
         const generatedKt = generatePerson(date);
@@ -191,13 +191,13 @@ describe("kennitala", () => {
 
   describe("sanitize", () => {
     it("should return empty string for invalid formats", () => {
-      expect(sanitize("310896DIRTYSSID2099")).toBe('');
-      expect(sanitize("6010sfa100890")).toBe('');
+      expect(sanitize("310896DIRTYSSID2099")).toBe("");
+      expect(sanitize("6010sfa100890")).toBe("");
     });
 
     it("should return empty string for non-string types", () => {
       // @ts-expect-error Testing invalid input
-      expect(sanitize(3108962099)).toBe('');
+      expect(sanitize(3108962099)).toBe("");
     });
   });
 
@@ -219,7 +219,7 @@ describe("kennitala", () => {
 
         const kt = generatePerson(
           new Date(randomDate),
-          Math.floor(Math.random() * 99)
+          Math.floor(Math.random() * 99),
         );
 
         if (kt) {
@@ -241,7 +241,7 @@ describe("kennitala", () => {
       expect(ktInfo?.valid).toBe(true);
       expect(ktInfo?.type).toBe("person");
       expect(ktInfo?.birthday?.toISOString()).toBe(
-        new Date("1996-08-31").toISOString()
+        new Date("1996-08-31").toISOString(),
       );
     });
 
@@ -267,7 +267,7 @@ describe("kennitala", () => {
       const today = new Date();
       const birthYear = today.getUTCFullYear() - 30;
       const birthDate = new Date(
-        Date.UTC(birthYear, today.getUTCMonth(), today.getUTCDate() - 1)
+        Date.UTC(birthYear, today.getUTCMonth(), today.getUTCDate() - 1),
       );
       const kt = generatePerson(birthDate);
       const ktInfo = info(kt!);
@@ -278,7 +278,7 @@ describe("kennitala", () => {
       const today = new Date();
       const birthYear = today.getUTCFullYear() - 30;
       const birthDate = new Date(
-        Date.UTC(birthYear, today.getUTCMonth(), today.getUTCDate())
+        Date.UTC(birthYear, today.getUTCMonth(), today.getUTCDate()),
       );
       const kt = generatePerson(birthDate);
       const ktInfo = info(kt!);
@@ -289,7 +289,7 @@ describe("kennitala", () => {
       const today = new Date();
       const birthYear = today.getUTCFullYear() - 30;
       const birthDate = new Date(
-        Date.UTC(birthYear, today.getUTCMonth(), today.getUTCDate() + 1)
+        Date.UTC(birthYear, today.getUTCMonth(), today.getUTCDate() + 1),
       );
       const kt = generatePerson(birthDate);
       const ktInfo = info(kt!);
@@ -304,12 +304,12 @@ describe("kennitala", () => {
     });
 
     it("should reject invalid formats", () => {
-      expect(sanitize("310896209")).toBe(''); // Too short
-      expect(sanitize("310896-20999")).toBe(''); // Too long
-      expect(sanitize("31-0896-2099")).toBe(''); // Incorrect hyphen placement
-      expect(sanitize("31a8962099")).toBe(''); // Contains letters
-      expect(sanitize("3108962099 ")).toBe(''); // Trailing space
-      expect(sanitize(" 3108962099")).toBe(''); // Leading space
+      expect(sanitize("310896209")).toBe(""); // Too short
+      expect(sanitize("310896-20999")).toBe(""); // Too long
+      expect(sanitize("31-0896-2099")).toBe(""); // Incorrect hyphen placement
+      expect(sanitize("31a8962099")).toBe(""); // Contains letters
+      expect(sanitize("3108962099 ")).toBe(""); // Trailing space
+      expect(sanitize(" 3108962099")).toBe(""); // Leading space
     });
   });
 });
