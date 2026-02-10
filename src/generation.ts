@@ -1,6 +1,6 @@
 // src/generation.ts
 
-import { calculateChecksumRemainder, padZero } from "./utils";
+import { padZero } from "./utils";
 
 const generateKennitala = (
   date: Date,
@@ -16,49 +16,24 @@ const generateKennitala = (
 
   let kt = `${padZero(day)}${padZero(month)}${yearSuffix}`;
 
-  const randomAndChecksum = (kt: string): string => {
+  const randomDigits789 = (): string => {
     const digit7 = Math.floor(Math.random() * 10);
     const digit8 = Math.floor(Math.random() * 10);
+    const digit9 = Math.floor(Math.random() * 10);
 
-    const tempKt = kt + digit7.toString() + digit8.toString();
-    const remainder = calculateChecksumRemainder(tempKt);
-
-    return remainder === null
-      ? randomAndChecksum(kt)
-      : `${digit7}${digit8}${remainder}`;
+    return `${digit7}${digit8}${digit9}`;
   };
 
-  const incrementingChecksum = (
-    kt: string,
-    incrementFrom: number
-  ): string | undefined => {
-    let inc = incrementFrom;
-
-    while (inc < 100) {
-      const digits = padZero(inc).split("");
-      const digit7 = digits[0];
-      const digit8 = digits[1];
-
-      const tempKt = kt + digit7 + digit8;
-      const remainder = calculateChecksumRemainder(tempKt);
-
-      if (remainder === null) {
-        inc++;
-        continue;
-      } else {
-        return `${digit7}${digit8}${remainder}`;
-      }
-    }
-
-    return undefined;
+  const incrementingDigits789 = (incrementFrom: number): string => {
+    return incrementFrom.toString().padStart(3, "0");
   };
 
   let digits789: string | undefined;
   if (startingIncrement) {
-    digits789 = incrementingChecksum(kt, startingIncrement);
-    if (!digits789) return '';
+    digits789 = incrementingDigits789(startingIncrement);
+    if (!digits789) return "";
   } else {
-    digits789 = randomAndChecksum(kt);
+    digits789 = randomDigits789();
   }
 
   kt += digits789;
@@ -69,10 +44,7 @@ const generateKennitala = (
   return kt;
 };
 
-const generatePerson = (
-  date: Date,
-  startingIncrement = 20,
-): string => {
+const generatePerson = (date: Date, startingIncrement = 200): string => {
   return generateKennitala(date, personDayDelta, startingIncrement);
 };
 
